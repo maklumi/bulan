@@ -1,28 +1,7 @@
 main {
-	display: grid;
-	grid-template-columns: 4fr 4fr 4fr;
+  display: grid;
+  grid-template-columns: 4fr 4fr 4fr;
 }
-
-div {
-	width: fit-content;
-	height: fit-content;
-	border: 1px solid;
-	padding: .5em;
-	margin: .5em;
+body {
+  font-size: 1.2rem;
 }
-
-table {
-	width: fit-content;
-	border: 1px solid salmon;
-}
-
-#addButton {
-	
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-  }

@@ -1,40 +1,35 @@
 <script>
-  import MyCalendar from "./MyCalendar.svelte";
-  import ListTarikh from "./LisTarikh.svelte";
-  $: repeats = [1];
+  import MyCalendar from './MyCalendar.svelte'
+  import ListTarikh from './LisTarikh.svelte'
+  import { resetvalue } from './stor.js'
+
+  $: repeats = [1]
+
+  function handleClick() {
+    resetvalue.update((value) => (value = !value))
+  }
 </script>
 
 <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
+  #title {
+    justify-content: stretch;
   }
 </style>
 
-<div id="addButton">
-  <button on:click={() => repeats.concat([1])}>Add</button>
-</div>
 <main>
-
-  {#each repeats as rpt}
-    <div>
+  <div class="window">
+    <div id="title" class="title-bar">
+      <div class="title-bar-text">Obstetric Calendar</div>
+      <div class="title-bar-controls">
+        <button aria-label="close" on:click={handleClick}>-reset-</button>
+      </div>
+    </div>
+    <div class="window-body">
       <MyCalendar />
     </div>
-  {/each}
-  <ListTarikh />
+
+    <div class="window-body">
+      <ListTarikh />
+    </div>
+  </div>
 </main>

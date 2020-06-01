@@ -1,0 +1,59 @@
+/* original global.css 6/5/2020 */
+body {
+	font-family: 'Pacifico', cursive;
+	margin: 2rem auto;
+	width: 95%;
+}
+
+h2,
+p {
+	margin: 0;
+}
+
+table {
+	width: 30%;
+	background-color: rgb(173, 246, 177);
+}
+
+td {
+	text-align: start;
+	padding: 4px;
+}
+
+tr:last-child>td {
+	text-align: center;
+}
+
+button {
+	background-color: rgb(191, 180, 143);
+	border-radius: 1em;
+}
+
+input[type=date] {
+	width: 100%;
+	margin: 8px 0;
+	box-sizing: border-box;
+	font-size: large;
+	font-weight: 700;
+	background-color: rgb(191, 180, 143);
+}
+
+#today {
+	background-color:rgb(247, 179, 43);
+}
+
+#gest {
+	background-color: rgb(242, 245, 222);
+}
+
+#weday {
+	background-color: rgb(204, 252, 203);
+}
+
+#lmp, #edd {
+	background-color: rgb(204, 252, 203);
+}
+
+#gestval {
+	font-size: larger;
+}

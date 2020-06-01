@@ -1,86 +1,88 @@
 <script>
-  import { format, addDays, set, differenceInCalendarDays } from "date-fns";
-  import { ms } from "date-fns/locale";
-  import { tambah } from "./stor";
+  import { format, addDays, set, differenceInCalendarDays } from 'date-fns'
+  import { ms } from 'date-fns/locale'
+  import { tambah, resetvalue } from './stor'
 
-  let lmp = new Date();
-  let edd = addDays(lmp, 280);
-  let rightDate = new Date();
-  let givenWeeks = 0;
-  let givenDays = 0;
-  let today = new Date();
+  let lmp = new Date()
+  let edd = addDays(lmp, 280)
+  let rightDate = new Date()
+  let givenWeeks = 0
+  let givenDays = 0
+  let today = new Date()
 
   $: start = [
     lmp.getFullYear(),
     pad(lmp.getMonth() + 1, 2),
     pad(lmp.getDate(), 2),
-  ].join("-");
+  ].join('-')
 
   $: endDate = [
     edd.getFullYear(),
     pad(edd.getMonth() + 1, 2),
     pad(edd.getDate(), 2),
-  ].join("-");
+  ].join('-')
 
-  $: gest = difference(rightDate, lmp);
-  $: week20 = toStr(addDays(lmp, 140));
-  $: week30 = toStr(addDays(lmp, 210));
-  $: week38 = format(addDays(lmp, 266), "d-MMM-yyyy E");
-  $: countedDate = calculateDate(givenWeeks, givenDays);
+  $: gest = difference(rightDate, lmp)
+  $: week20 = toStr(addDays(lmp, 140))
+  $: week30 = toStr(addDays(lmp, 210))
+  $: week38 = format(addDays(lmp, 266), 'd-MMM-yyyy E')
+  $: countedDate = calculateDate(givenWeeks, givenDays)
 
   function toStr(date) {
     try {
-      return format(date, "d-MMM-yyyy");
+      return format(date, 'd-MMM-yyyy')
     } catch (error) {
-      console.log(error.message);
-      return "-";
+      console.log(error.message)
+      return '-'
     }
   }
 
   function pad(x, len) {
-    x = String(x);
-    while (x.length < len) x = `0${x}`;
-    return x;
+    x = String(x)
+    while (x.length < len) x = `0${x}`
+    return x
   }
 
   function handleLMP(event) {
-    let arr = event.target.value.split("-");
-    if (isNotValid(arr)) return;
-    lmp = set(new Date(), { year: arr[0], month: arr[1] - 1, date: arr[2] });
-    edd = addDays(lmp, 280);
+    let arr = event.target.value.split('-')
+    if (isNotValid(arr)) return
+    lmp = set(new Date(), { year: arr[0], month: arr[1] - 1, date: arr[2] })
+    edd = addDays(lmp, 280)
     // console.log(`lmp ${arr}`);
   }
 
   function handleEDD(event) {
-    let arr = event.target.value.split("-");
-    if (isNotValid(arr)) return;
-    edd = set(new Date(), { year: arr[0], month: arr[1] - 1, date: arr[2] });
-    lmp = addDays(edd, -280);
+    let arr = event.target.value.split('-')
+    if (isNotValid(arr)) return
+    edd = set(new Date(), { year: arr[0], month: arr[1] - 1, date: arr[2] })
+    lmp = addDays(edd, -280)
   }
 
   function isNotValid(arr) {
     return (
       arr.length === 1 || parseInt(arr[0]) < 1000 || parseInt(arr[0]) > 3000
-    );
+    )
   }
 
   function difference(firstDate, secondDate) {
-    today = new Date();
-    let daysDif = differenceInCalendarDays(firstDate, secondDate);
-    let newgest = { week: Math.floor(daysDif / 7), days: daysDif % 7 };
-    tambah(format(lmp, "d-MMM-yyyy HH:mm"), newgest);
-    return newgest;
+    today = new Date()
+    let daysDif = differenceInCalendarDays(firstDate, secondDate)
+    let newgest = { week: Math.floor(daysDif / 7), days: daysDif % 7 }
+    tambah(format(lmp, 'd-MMM-yyyy HH:mm'), newgest)
+    return newgest
   }
 
   function calculateDate(w, d) {
-    let days = w * 7 + d;
-    return addDays(lmp, days);
+    let days = w * 7 + d
+    return addDays(lmp, days)
   }
 
-  function handleReset() {
-    lmp = new Date();
-    givenWeeks = 0;
-    givenDays = 0;
+  $: somevalue = handlereset($resetvalue)
+
+  function handlereset(resetvalue) {
+    lmp = new Date()
+    givenWeeks = 0
+    givenDays = 0
   }
 </script>
 
@@ -134,13 +136,6 @@
       <input type="number" style="width:3em" bind:value={givenDays} />
       D: {toStr(countedDate)}
     </td>
-  </tr>
-
-  <tr>
-    <td colspan="2">
-      <button on:click={handleReset}>Reset</button>
-    </td>
-
   </tr>
 
 </table>
