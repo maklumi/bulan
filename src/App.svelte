@@ -2,6 +2,7 @@
   import MyCalendar from './MyCalendar.svelte'
   import ListTarikh from './LisTarikh.svelte'
   import { resetvalue } from './stor.js'
+  import WeightSection from './components/BMI.svelte'
 
   $: repeats = [1]
 
@@ -32,4 +33,6 @@
       <ListTarikh />
     </div>
   </div>
+
+  <WeightSection />
 </main>
