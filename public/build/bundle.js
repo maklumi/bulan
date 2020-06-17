@@ -727,6 +727,40 @@ var app = (function () {
       return !isNaN(date);
     }
 
+    /**
+     * @name differenceInMilliseconds
+     * @category Millisecond Helpers
+     * @summary Get the number of milliseconds between the given dates.
+     *
+     * @description
+     * Get the number of milliseconds between the given dates.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} dateLeft - the later date
+     * @param {Date|Number} dateRight - the earlier date
+     * @returns {Number} the number of milliseconds
+     * @throws {TypeError} 2 arguments required
+     *
+     * @example
+     * // How many milliseconds are between
+     * // 2 July 2014 12:30:20.600 and 2 July 2014 12:30:21.700?
+     * var result = differenceInMilliseconds(
+     *   new Date(2014, 6, 2, 12, 30, 21, 700),
+     *   new Date(2014, 6, 2, 12, 30, 20, 600)
+     * )
+     * //=> 1100
+     */
+
+    function differenceInMilliseconds(dirtyDateLeft, dirtyDateRight) {
+      requiredArgs(2, arguments);
+      var dateLeft = toDate(dirtyDateLeft);
+      var dateRight = toDate(dirtyDateRight);
+      return dateLeft.getTime() - dateRight.getTime();
+    }
+
     var formatDistanceLocale = {
       lessThanXSeconds: {
         one: 'less than a second',
@@ -2898,6 +2932,35 @@ var app = (function () {
     }
 
     /**
+     * @name getTime
+     * @category Timestamp Helpers
+     * @summary Get the milliseconds timestamp of the given date.
+     *
+     * @description
+     * Get the milliseconds timestamp of the given date.
+     *
+     * ### v2.0.0 breaking changes:
+     *
+     * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+     *
+     * @param {Date|Number} date - the given date
+     * @returns {Number} the timestamp
+     * @throws {TypeError} 1 argument required
+     *
+     * @example
+     * // Get the timestamp of 29 February 2012 11:45:05.123:
+     * var result = getTime(new Date(2012, 1, 29, 11, 45, 5, 123))
+     * //=> 1330515905123
+     */
+
+    function getTime(dirtyDate) {
+      requiredArgs(1, arguments);
+      var date = toDate(dirtyDate);
+      var timestamp = date.getTime();
+      return timestamp;
+    }
+
+    /**
      * @name setMonth
      * @category Month Helpers
      * @summary Set the month to the given date.
@@ -3447,18 +3510,34 @@ var app = (function () {
     const senaraiTarikh = writable([]);
 
     const tambah = (tarikh, newgest) => {
-      const hhmm = tarikh.slice(-5);
+      const tnow = new Date();
 
       senaraiTarikh.update((values) => {
-        const objindex = values.findIndex((obj) => obj.id === hhmm);
-        if (objindex === -1) {
-          const newobj = { id: hhmm, masa: tarikh, gest: newgest };
-          return [...values, newobj]
+        if (values.length > 0) {
+          const lastItem = values[values.length - 1];
+          const lastItemDate = new Date(lastItem.id);
+          const elapsed = differenceInMilliseconds(tnow, lastItemDate);
+          if (elapsed > 10000) {
+            // if more than 10 seconds, create
+            const newobj = { id: getTime(tnow), masa: tarikh, gest: newgest };
+            return [...values, newobj]
+          } else {
+            // if less than that, update the last one
+            const index = values.findIndex((item) => item.id === lastItem.id);
+            values[index].masa = tarikh;
+            values[index].gest = newgest;
+            return [...values]
+          }
         } else {
-          values[objindex].masa = tarikh;
-          values[objindex].gest = newgest;
-          return [...values]
+          // for initialization when values is empty
+          return [{ id: getTime(tnow), masa: tarikh, gest: newgest }]
         }
+      });
+    };
+
+    const padam = (id) => {
+      senaraiTarikh.update((senaraiAsal) => {
+        return senaraiAsal.filter((item) => item.id !== id)
       });
     };
 
@@ -3471,6 +3550,7 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let table;
+    	let tbody;
     	let tr0;
     	let td0;
     	let t1;
@@ -3537,6 +3617,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			table = element("table");
+    			tbody = element("tbody");
     			tr0 = element("tr");
     			td0 = element("td");
     			td0.textContent = "LMP:";
@@ -3595,54 +3676,64 @@ var app = (function () {
     			tr7 = element("tr");
     			td14 = element("td");
     			input2 = element("input");
-    			t32 = text("\r\n      W\r\n      ");
+    			t32 = text("\r\n        W\r\n        ");
     			input3 = element("input");
-    			t33 = text("\r\n      D: ");
+    			t33 = text("\r\n        D: ");
     			t34 = text(t34_value);
-    			add_location(td0, file, 90, 4, 2279);
+    			add_location(td0, file, 91, 6, 2340);
     			attr_dev(input0, "type", "date");
     			input0.value = /*start*/ ctx[3];
     			attr_dev(input0, "max", "9999-12-31");
-    			add_location(input0, file, 92, 6, 2310);
-    			add_location(td1, file, 91, 4, 2298);
+    			add_location(input0, file, 93, 8, 2375);
+    			add_location(td1, file, 92, 6, 2361);
     			attr_dev(tr0, "id", "lmp");
-    			add_location(tr0, file, 89, 2, 2260);
-    			add_location(td2, file, 97, 4, 2428);
+    			attr_dev(tr0, "class", "bg-pink-400");
+    			add_location(tr0, file, 90, 4, 2299);
+    			add_location(td2, file, 102, 6, 2565);
     			attr_dev(input1, "type", "date");
     			input1.value = /*endDate*/ ctx[4];
     			attr_dev(input1, "max", "9999-12-31");
-    			add_location(input1, file, 99, 6, 2459);
-    			add_location(td3, file, 98, 4, 2447);
+    			add_location(input1, file, 104, 8, 2600);
+    			add_location(td3, file, 103, 6, 2586);
     			attr_dev(tr1, "id", "edd");
-    			add_location(tr1, file, 96, 2, 2409);
-    			add_location(td4, file, 108, 4, 2618);
-    			add_location(td5, file, 109, 4, 2641);
+    			attr_dev(tr1, "class", "bg-pink-500");
+    			add_location(tr1, file, 101, 4, 2524);
+    			add_location(td4, file, 113, 6, 2820);
+    			add_location(td5, file, 114, 6, 2845);
     			attr_dev(tr2, "id", "today");
-    			add_location(tr2, file, 107, 2, 2597);
-    			add_location(td6, file, 113, 4, 2717);
+    			attr_dev(tr2, "class", "uppercase font-medium tracking-wider");
+    			add_location(tr2, file, 112, 4, 2752);
+    			add_location(td6, file, 118, 6, 2963);
     			attr_dev(td7, "id", "gestval");
-    			add_location(td7, file, 114, 4, 2742);
+    			add_location(td7, file, 119, 6, 2990);
     			attr_dev(tr3, "id", "gest");
-    			add_location(tr3, file, 112, 2, 2697);
-    			add_location(td8, file, 120, 4, 2935);
-    			add_location(td9, file, 121, 4, 2959);
-    			add_location(tr4, file, 119, 2, 2925);
-    			add_location(td10, file, 124, 4, 2999);
-    			add_location(td11, file, 125, 4, 3023);
-    			add_location(tr5, file, 123, 2, 2989);
-    			add_location(td12, file, 128, 4, 3063);
-    			add_location(td13, file, 129, 4, 3087);
-    			add_location(tr6, file, 127, 2, 3053);
+    			attr_dev(tr3, "class", "bg-indigo-300 font-semibold");
+    			add_location(tr3, file, 117, 4, 2905);
+    			add_location(td8, file, 125, 6, 3214);
+    			add_location(td9, file, 126, 6, 3240);
+    			attr_dev(tr4, "class", "font-light");
+    			add_location(tr4, file, 124, 4, 3183);
+    			add_location(td10, file, 129, 6, 3305);
+    			add_location(td11, file, 130, 6, 3331);
+    			attr_dev(tr5, "class", "font-light");
+    			add_location(tr5, file, 128, 4, 3274);
+    			add_location(td12, file, 133, 6, 3397);
+    			add_location(td13, file, 134, 6, 3423);
+    			attr_dev(tr6, "class", "font-normal");
+    			add_location(tr6, file, 132, 4, 3365);
     			attr_dev(input2, "type", "number");
     			set_style(input2, "width", "3em");
-    			add_location(input2, file, 133, 6, 3162);
+    			add_location(input2, file, 138, 8, 3528);
     			attr_dev(input3, "type", "number");
     			set_style(input3, "width", "3em");
-    			add_location(input3, file, 135, 6, 3244);
+    			add_location(input3, file, 140, 8, 3614);
     			attr_dev(td14, "colspan", "2");
-    			add_location(td14, file, 132, 4, 3138);
+    			add_location(td14, file, 137, 6, 3502);
     			attr_dev(tr7, "id", "weday");
-    			add_location(tr7, file, 131, 2, 3117);
+    			attr_dev(tr7, "class", "bg-purple-400");
+    			add_location(tr7, file, 136, 4, 3457);
+    			add_location(tbody, file, 89, 2, 2286);
+    			attr_dev(table, "class", "table-auto w-full");
     			add_location(table, file, 88, 0, 2249);
     		},
     		l: function claim(nodes) {
@@ -3650,25 +3741,26 @@ var app = (function () {
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, table, anchor);
-    			append_dev(table, tr0);
+    			append_dev(table, tbody);
+    			append_dev(tbody, tr0);
     			append_dev(tr0, td0);
     			append_dev(tr0, t1);
     			append_dev(tr0, td1);
     			append_dev(td1, input0);
-    			append_dev(table, t2);
-    			append_dev(table, tr1);
+    			append_dev(tbody, t2);
+    			append_dev(tbody, tr1);
     			append_dev(tr1, td2);
     			append_dev(tr1, t4);
     			append_dev(tr1, td3);
     			append_dev(td3, input1);
-    			append_dev(table, t5);
-    			append_dev(table, tr2);
+    			append_dev(tbody, t5);
+    			append_dev(tbody, tr2);
     			append_dev(tr2, td4);
     			append_dev(tr2, t7);
     			append_dev(tr2, td5);
     			append_dev(td5, t8);
-    			append_dev(table, t9);
-    			append_dev(table, tr3);
+    			append_dev(tbody, t9);
+    			append_dev(tbody, tr3);
     			append_dev(tr3, td6);
     			append_dev(tr3, t11);
     			append_dev(tr3, td7);
@@ -3679,26 +3771,26 @@ var app = (function () {
     			append_dev(td7, t16);
     			append_dev(td7, t17);
     			append_dev(td7, t18);
-    			append_dev(table, t19);
-    			append_dev(table, tr4);
+    			append_dev(tbody, t19);
+    			append_dev(tbody, tr4);
     			append_dev(tr4, td8);
     			append_dev(tr4, t21);
     			append_dev(tr4, td9);
     			append_dev(td9, t22);
-    			append_dev(table, t23);
-    			append_dev(table, tr5);
+    			append_dev(tbody, t23);
+    			append_dev(tbody, tr5);
     			append_dev(tr5, td10);
     			append_dev(tr5, t25);
     			append_dev(tr5, td11);
     			append_dev(td11, t26);
-    			append_dev(table, t27);
-    			append_dev(table, tr6);
+    			append_dev(tbody, t27);
+    			append_dev(tbody, tr6);
     			append_dev(tr6, td12);
     			append_dev(tr6, t29);
     			append_dev(tr6, td13);
     			append_dev(td13, t30);
-    			append_dev(table, t31);
-    			append_dev(table, tr7);
+    			append_dev(tbody, t31);
+    			append_dev(tbody, tr7);
     			append_dev(tr7, td14);
     			append_dev(td14, input2);
     			set_input_value(input2, /*givenWeeks*/ ctx[0]);
@@ -4004,27 +4096,65 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[1] = list[i].id;
-    	child_ctx[2] = list[i].masa;
-    	child_ctx[3] = list[i].gest;
+    	child_ctx[4] = list[i].id;
+    	child_ctx[5] = list[i].masa;
+    	child_ctx[6] = list[i].gest;
     	return child_ctx;
     }
 
-    // (16:2) {:else}
-    function create_else_block(ctx) {
-    	let li;
+    // (11:0) {#if senaraiPesakit.length !== 0}
+    function create_if_block(ctx) {
+    	let p;
+    	let t0;
+    	let t1_value = /*senaraiPesakit*/ ctx[0].length + "";
+    	let t1;
 
     	const block = {
     		c: function create() {
-    			li = element("li");
-    			li.textContent = "Selamat Bertugas";
-    			add_location(li, file$1, 16, 4, 332);
+    			p = element("p");
+    			t0 = text("Bilangan kiraan: ");
+    			t1 = text(t1_value);
+    			add_location(p, file$1, 11, 2, 279);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, li, anchor);
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*senaraiPesakit*/ 1 && t1_value !== (t1_value = /*senaraiPesakit*/ ctx[0].length + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(li);
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(11:0) {#if senaraiPesakit.length !== 0}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (24:2) {:else}
+    function create_else_block(ctx) {
+    	let div;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			div.textContent = "Selamat Bertugas";
+    			add_location(div, file$1, 24, 4, 663);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -4032,26 +4162,33 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(16:2) {:else}",
+    		source: "(24:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (14:2) {#each $storTarikh as { id, masa, gest }}
+    // (15:2) {#each senaraiPesakit as { id, masa, gest }}
     function create_each_block(ctx) {
     	let li;
     	let t0;
-    	let t1_value = /*masa*/ ctx[2] + "";
+    	let t1_value = /*masa*/ ctx[5] + "";
     	let t1;
     	let t2;
-    	let t3_value = /*gest*/ ctx[3].week + "";
+    	let t3_value = /*gest*/ ctx[6].week + "";
     	let t3;
     	let t4;
-    	let t5_value = /*gest*/ ctx[3].days + "";
+    	let t5_value = /*gest*/ ctx[6].days + "";
     	let t5;
     	let t6;
+    	let button;
+    	let t8;
+    	let dispose;
+
+    	function click_handler(...args) {
+    		return /*click_handler*/ ctx[3](/*id*/ ctx[4], ...args);
+    	}
 
     	const block = {
     		c: function create() {
@@ -4062,10 +4199,16 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = text("+");
     			t5 = text(t5_value);
-    			t6 = text("/7");
-    			add_location(li, file$1, 14, 4, 263);
+    			t6 = text("/7\r\n      ");
+    			button = element("button");
+    			button.textContent = "X";
+    			t8 = space();
+    			attr_dev(button, "class", "bg-purple-400 hover:bg-purple-600 text-white px-1 py-0 ");
+    			add_location(button, file$1, 17, 6, 490);
+    			attr_dev(li, "class", "py-1 flex justify-between");
+    			add_location(li, file$1, 15, 4, 393);
     		},
-    		m: function mount(target, anchor) {
+    		m: function mount(target, anchor, remount) {
     			insert_dev(target, li, anchor);
     			append_dev(li, t0);
     			append_dev(li, t1);
@@ -4074,14 +4217,20 @@ var app = (function () {
     			append_dev(li, t4);
     			append_dev(li, t5);
     			append_dev(li, t6);
+    			append_dev(li, button);
+    			append_dev(li, t8);
+    			if (remount) dispose();
+    			dispose = listen_dev(button, "click", click_handler, false, false, false);
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$storTarikh*/ 1 && t1_value !== (t1_value = /*masa*/ ctx[2] + "")) set_data_dev(t1, t1_value);
-    			if (dirty & /*$storTarikh*/ 1 && t3_value !== (t3_value = /*gest*/ ctx[3].week + "")) set_data_dev(t3, t3_value);
-    			if (dirty & /*$storTarikh*/ 1 && t5_value !== (t5_value = /*gest*/ ctx[3].days + "")) set_data_dev(t5, t5_value);
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*senaraiPesakit*/ 1 && t1_value !== (t1_value = /*masa*/ ctx[5] + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t3_value !== (t3_value = /*gest*/ ctx[6].week + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t5_value !== (t5_value = /*gest*/ ctx[6].days + "")) set_data_dev(t5, t5_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
+    			dispose();
     		}
     	};
 
@@ -4089,7 +4238,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(14:2) {#each $storTarikh as { id, masa, gest }}",
+    		source: "(15:2) {#each senaraiPesakit as { id, masa, gest }}",
     		ctx
     	});
 
@@ -4097,8 +4246,12 @@ var app = (function () {
     }
 
     function create_fragment$1(ctx) {
+    	let p;
+    	let t2;
+    	let t3;
     	let ol;
-    	let each_value = /*$storTarikh*/ ctx[0];
+    	let if_block = /*senaraiPesakit*/ ctx[0].length !== 0 && create_if_block(ctx);
+    	let each_value = /*senaraiPesakit*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -4114,6 +4267,11 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			p = element("p");
+    			p.textContent = `Klinik mula: ${/*masaMasuk*/ ctx[1].masa}`;
+    			t2 = space();
+    			if (if_block) if_block.c();
+    			t3 = space();
     			ol = element("ol");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -4124,13 +4282,17 @@ var app = (function () {
     				each_1_else.c();
     			}
 
-    			attr_dev(ol, "class", "svelte-4r13zw");
-    			add_location(ol, file$1, 12, 0, 208);
+    			add_location(p, file$1, 9, 0, 204);
+    			add_location(ol, file$1, 13, 0, 335);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			insert_dev(target, t2, anchor);
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t3, anchor);
     			insert_dev(target, ol, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -4142,8 +4304,21 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$storTarikh*/ 1) {
-    				each_value = /*$storTarikh*/ ctx[0];
+    			if (/*senaraiPesakit*/ ctx[0].length !== 0) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					if_block.m(t3.parentNode, t3);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (dirty & /*padam, senaraiPesakit*/ 1) {
+    				each_value = /*senaraiPesakit*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
 
@@ -4180,6 +4355,10 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    			if (detaching) detach_dev(t2);
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(ol);
     			destroy_each(each_blocks, detaching);
     			if (each_1_else) each_1_else.d();
@@ -4200,7 +4379,8 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let $storTarikh;
     	validate_store(senaraiTarikh, "storTarikh");
-    	component_subscribe($$self, senaraiTarikh, $$value => $$invalidate(0, $storTarikh = $$value));
+    	component_subscribe($$self, senaraiTarikh, $$value => $$invalidate(2, $storTarikh = $$value));
+    	let masaMasuk = $storTarikh[0];
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -4209,8 +4389,35 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("LisTarikh", $$slots, []);
-    	$$self.$capture_state = () => ({ storTarikh: senaraiTarikh, get_store_value, $storTarikh });
-    	return [$storTarikh];
+    	const click_handler = id => padam(id);
+
+    	$$self.$capture_state = () => ({
+    		storTarikh: senaraiTarikh,
+    		padam,
+    		get_store_value,
+    		masaMasuk,
+    		$storTarikh,
+    		senaraiPesakit
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("masaMasuk" in $$props) $$invalidate(1, masaMasuk = $$props.masaMasuk);
+    		if ("senaraiPesakit" in $$props) $$invalidate(0, senaraiPesakit = $$props.senaraiPesakit);
+    	};
+
+    	let senaraiPesakit;
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$storTarikh*/ 4) {
+    			 $$invalidate(0, senaraiPesakit = $storTarikh.slice(1));
+    		}
+    	};
+
+    	return [senaraiPesakit, masaMasuk, $storTarikh, click_handler];
     }
 
     class LisTarikh extends SvelteComponentDev {
@@ -4232,186 +4439,297 @@ var app = (function () {
     const file$2 = "src\\components\\BMI.svelte";
 
     function create_fragment$2(ctx) {
-    	let div7;
-    	let div2;
+    	let div26;
     	let div0;
     	let t1;
-    	let div1;
-    	let button;
-    	let t3;
-    	let div6;
+    	let div25;
     	let div3;
     	let label0;
-    	let t4;
+    	let t3;
+    	let div2;
+    	let div1;
     	let input0;
-    	let t5;
+    	let t4;
+    	let span0;
     	let t6;
-    	let div4;
-    	let label1;
-    	let t7;
-    	let input1;
-    	let t8;
-    	let t9;
     	let div5;
-    	let p0;
-    	let t10;
+    	let label1;
+    	let t8;
+    	let div4;
+    	let input1;
+    	let t9;
+    	let span1;
+    	let t11;
+    	let div24;
+    	let div8;
+    	let div6;
+    	let t13;
+    	let div7;
 
-    	let t11_value = (/*currentbmi*/ ctx[2]
-    	? /*currentbmi*/ ctx[2].toFixed(2)
+    	let t14_value = (/*currentbmi*/ ctx[2]
+    	? /*currentbmi*/ ctx[2].toFixed(1)
     	: 0) + "";
 
-    	let t11;
-    	let t12;
-    	let p1;
-    	let t13;
-    	let t14_value = /*minnormwt*/ ctx[3].toFixed(2) + "";
     	let t14;
     	let t15;
-    	let t16_value = /*maxnorwt*/ ctx[4].toFixed(2) + "";
-    	let t16;
+    	let div11;
+    	let div9;
     	let t17;
-    	let p2;
+    	let div10;
+    	let t18_value = /*minnormwt*/ ctx[3].toFixed(1) + "";
     	let t18;
-    	let t19_value = /*minoverwt*/ ctx[5].toFixed(2) + "";
     	let t19;
+    	let t20_value = /*maxnorwt*/ ctx[4].toFixed(1) + "";
     	let t20;
-    	let t21_value = /*maxoverwt*/ ctx[6].toFixed(2) + "";
     	let t21;
+    	let div14;
+    	let div12;
+    	let t23;
+    	let div13;
+    	let t24_value = /*minoverwt*/ ctx[5].toFixed(1) + "";
+    	let t24;
+    	let t25;
+    	let t26_value = /*maxoverwt*/ ctx[6].toFixed(1) + "";
+    	let t26;
+    	let t27;
+    	let div17;
+    	let div15;
+    	let t29;
+    	let div16;
+    	let t30_value = /*minobese1*/ ctx[7].toFixed(1) + "";
+    	let t30;
+    	let t31;
+    	let t32_value = /*maxobese1*/ ctx[8].toFixed(1) + "";
+    	let t32;
+    	let t33;
+    	let div20;
+    	let div18;
+    	let t35;
+    	let div19;
+    	let t36_value = /*minobese2*/ ctx[9].toFixed(1) + "";
+    	let t36;
+    	let t37;
+    	let t38_value = /*maxobese2*/ ctx[10].toFixed(1) + "";
+    	let t38;
+    	let t39;
+    	let div23;
+    	let div21;
+    	let t41;
+    	let div22;
+    	let t42_value = /*minobese3*/ ctx[11].toFixed(1) + "";
+    	let t42;
     	let dispose;
 
     	const block = {
     		c: function create() {
-    			div7 = element("div");
-    			div2 = element("div");
+    			div26 = element("div");
     			div0 = element("div");
     			div0.textContent = "BMI measurements";
     			t1 = space();
-    			div1 = element("div");
-    			button = element("button");
-    			button.textContent = "RESET";
-    			t3 = space();
-    			div6 = element("div");
+    			div25 = element("div");
     			div3 = element("div");
     			label0 = element("label");
-    			t4 = text("Weight\r\n        ");
+    			label0.textContent = "Weight";
+    			t3 = space();
+    			div2 = element("div");
+    			div1 = element("div");
     			input0 = element("input");
-    			t5 = text("\r\n        kg");
+    			t4 = space();
+    			span0 = element("span");
+    			span0.textContent = "kg";
     			t6 = space();
-    			div4 = element("div");
-    			label1 = element("label");
-    			t7 = text("Height\r\n        ");
-    			input1 = element("input");
-    			t8 = text("\r\n        cm");
-    			t9 = space();
     			div5 = element("div");
-    			p0 = element("p");
-    			t10 = text("Current BMI :");
-    			t11 = text(t11_value);
-    			t12 = space();
-    			p1 = element("p");
-    			t13 = text("Normal BMI 17-24.9 : ");
+    			label1 = element("label");
+    			label1.textContent = "Height";
+    			t8 = space();
+    			div4 = element("div");
+    			input1 = element("input");
+    			t9 = space();
+    			span1 = element("span");
+    			span1.textContent = "cm";
+    			t11 = space();
+    			div24 = element("div");
+    			div8 = element("div");
+    			div6 = element("div");
+    			div6.textContent = "Current BMI :";
+    			t13 = space();
+    			div7 = element("div");
     			t14 = text(t14_value);
-    			t15 = text("-");
-    			t16 = text(t16_value);
+    			t15 = space();
+    			div11 = element("div");
+    			div9 = element("div");
+    			div9.textContent = "Normal BMI 17-24.9 :";
     			t17 = space();
-    			p2 = element("p");
-    			t18 = text("Overweight BMI 25-29.9 : ");
-    			t19 = text(t19_value);
-    			t20 = text("-");
-    			t21 = text(t21_value);
-    			attr_dev(div0, "class", "title-bar-text");
-    			add_location(div0, file$2, 39, 4, 787);
-    			attr_dev(button, "aria-label", "close");
-    			add_location(button, file$2, 41, 6, 883);
-    			attr_dev(div1, "class", "title-bar-controls");
-    			add_location(div1, file$2, 40, 4, 843);
-    			attr_dev(div2, "id", "title");
-    			attr_dev(div2, "class", "title-bar svelte-18shd0p");
-    			add_location(div2, file$2, 38, 2, 747);
+    			div10 = element("div");
+    			t18 = text(t18_value);
+    			t19 = text("-");
+    			t20 = text(t20_value);
+    			t21 = space();
+    			div14 = element("div");
+    			div12 = element("div");
+    			div12.textContent = "Overwt BMI 25-29.9 :";
+    			t23 = space();
+    			div13 = element("div");
+    			t24 = text(t24_value);
+    			t25 = text("-");
+    			t26 = text(t26_value);
+    			t27 = space();
+    			div17 = element("div");
+    			div15 = element("div");
+    			div15.textContent = "Obese BMI 30-34.9 :";
+    			t29 = space();
+    			div16 = element("div");
+    			t30 = text(t30_value);
+    			t31 = text("-");
+    			t32 = text(t32_value);
+    			t33 = space();
+    			div20 = element("div");
+    			div18 = element("div");
+    			div18.textContent = "Obese BMI 35-39.9 :";
+    			t35 = space();
+    			div19 = element("div");
+    			t36 = text(t36_value);
+    			t37 = text("-");
+    			t38 = text(t38_value);
+    			t39 = space();
+    			div23 = element("div");
+    			div21 = element("div");
+    			div21.textContent = "Obese BMI 40 :";
+    			t41 = space();
+    			div22 = element("div");
+    			t42 = text(t42_value);
+    			attr_dev(div0, "class", "flex bg-purple-500 mt-1 p-2 uppercase text-center tracking-wide\r\n    border-2 border-purple-300 rounded ");
+    			add_location(div0, file$2, 16, 2, 547);
+    			add_location(label0, file$2, 24, 6, 789);
     			attr_dev(input0, "id", "weight");
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "0");
     			attr_dev(input0, "max", "1000");
-    			attr_dev(input0, "class", "svelte-18shd0p");
-    			add_location(input0, file$2, 48, 8, 1088);
-    			attr_dev(label0, "for", "weight");
-    			attr_dev(label0, "class", "svelte-18shd0p");
-    			add_location(label0, file$2, 46, 6, 1042);
-    			attr_dev(div3, "class", "field-row svelte-18shd0p");
-    			attr_dev(div3, "id", "fieldrow");
-    			add_location(div3, file$2, 45, 4, 997);
+    			add_location(input0, file$2, 27, 10, 863);
+    			add_location(span0, file$2, 28, 10, 945);
+    			add_location(div1, file$2, 26, 8, 846);
+    			attr_dev(div2, "class", "my-1");
+    			add_location(div2, file$2, 25, 6, 818);
+    			attr_dev(div3, "class", "px-2 bg-pink-400 flex justify-around");
+    			add_location(div3, file$2, 23, 4, 731);
+    			add_location(label1, file$2, 33, 6, 1066);
     			attr_dev(input1, "id", "height");
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "0");
     			attr_dev(input1, "max", "1000");
-    			attr_dev(input1, "class", "svelte-18shd0p");
-    			add_location(input1, file$2, 55, 8, 1295);
-    			attr_dev(label1, "for", "height");
-    			attr_dev(label1, "class", "svelte-18shd0p");
-    			add_location(label1, file$2, 53, 6, 1249);
-    			attr_dev(div4, "class", "field-row svelte-18shd0p");
-    			attr_dev(div4, "id", "fieldrow");
-    			add_location(div4, file$2, 52, 4, 1204);
-    			add_location(p0, file$2, 61, 6, 1462);
-    			add_location(p1, file$2, 62, 6, 1530);
-    			add_location(p2, file$2, 63, 6, 1610);
-    			attr_dev(div5, "class", "window-body svelte-18shd0p");
-    			attr_dev(div5, "id", "windowbody");
-    			add_location(div5, file$2, 60, 4, 1413);
-    			attr_dev(div6, "class", "window-body svelte-18shd0p");
-    			attr_dev(div6, "id", "windowbody");
-    			add_location(div6, file$2, 44, 2, 950);
-    			attr_dev(div7, "class", "window svelte-18shd0p");
-    			attr_dev(div7, "id", "window");
-    			add_location(div7, file$2, 37, 0, 711);
+    			add_location(input1, file$2, 35, 8, 1123);
+    			add_location(span1, file$2, 36, 8, 1203);
+    			attr_dev(div4, "class", "my-1");
+    			add_location(div4, file$2, 34, 6, 1095);
+    			attr_dev(div5, "class", "px-2 bg-pink-500 flex justify-around");
+    			add_location(div5, file$2, 32, 4, 1008);
+    			add_location(div6, file$2, 42, 8, 1317);
+    			add_location(div7, file$2, 43, 8, 1351);
+    			attr_dev(div8, "class", "bmirow mt-6");
+    			add_location(div8, file$2, 41, 6, 1282);
+    			add_location(div9, file$2, 46, 8, 1459);
+    			add_location(div10, file$2, 47, 8, 1500);
+    			attr_dev(div11, "class", "bmirow mt-4");
+    			add_location(div11, file$2, 45, 6, 1424);
+    			add_location(div12, file$2, 50, 8, 1612);
+    			add_location(div13, file$2, 51, 8, 1653);
+    			attr_dev(div14, "class", "bmirow mt-1");
+    			add_location(div14, file$2, 49, 6, 1577);
+    			add_location(div15, file$2, 54, 8, 1766);
+    			add_location(div16, file$2, 55, 8, 1806);
+    			attr_dev(div17, "class", "bmirow mt-1");
+    			add_location(div17, file$2, 53, 6, 1731);
+    			add_location(div18, file$2, 58, 8, 1919);
+    			add_location(div19, file$2, 59, 8, 1959);
+    			attr_dev(div20, "class", "bmirow mt-1");
+    			add_location(div20, file$2, 57, 6, 1884);
+    			add_location(div21, file$2, 62, 8, 2072);
+    			add_location(div22, file$2, 63, 8, 2107);
+    			attr_dev(div23, "class", "bmirow mt-1");
+    			add_location(div23, file$2, 61, 6, 2037);
+    			attr_dev(div24, "class", "flex-col");
+    			add_location(div24, file$2, 40, 4, 1252);
+    			attr_dev(div25, "class", "p-2");
+    			add_location(div25, file$2, 22, 2, 708);
+    			attr_dev(div26, "class", "bg-purple-300 m-2 shadow-2xl rounded-lg");
+    			add_location(div26, file$2, 15, 0, 490);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor, remount) {
-    			insert_dev(target, div7, anchor);
-    			append_dev(div7, div2);
-    			append_dev(div2, div0);
-    			append_dev(div2, t1);
-    			append_dev(div2, div1);
-    			append_dev(div1, button);
-    			append_dev(div7, t3);
-    			append_dev(div7, div6);
-    			append_dev(div6, div3);
+    			insert_dev(target, div26, anchor);
+    			append_dev(div26, div0);
+    			append_dev(div26, t1);
+    			append_dev(div26, div25);
+    			append_dev(div25, div3);
     			append_dev(div3, label0);
-    			append_dev(label0, t4);
-    			append_dev(label0, input0);
+    			append_dev(div3, t3);
+    			append_dev(div3, div2);
+    			append_dev(div2, div1);
+    			append_dev(div1, input0);
     			set_input_value(input0, /*wt*/ ctx[0]);
-    			append_dev(label0, t5);
-    			append_dev(div6, t6);
-    			append_dev(div6, div4);
-    			append_dev(div4, label1);
-    			append_dev(label1, t7);
-    			append_dev(label1, input1);
+    			append_dev(div1, t4);
+    			append_dev(div1, span0);
+    			append_dev(div25, t6);
+    			append_dev(div25, div5);
+    			append_dev(div5, label1);
+    			append_dev(div5, t8);
+    			append_dev(div5, div4);
+    			append_dev(div4, input1);
     			set_input_value(input1, /*ht*/ ctx[1]);
-    			append_dev(label1, t8);
-    			append_dev(div6, t9);
-    			append_dev(div6, div5);
-    			append_dev(div5, p0);
-    			append_dev(p0, t10);
-    			append_dev(p0, t11);
-    			append_dev(div5, t12);
-    			append_dev(div5, p1);
-    			append_dev(p1, t13);
-    			append_dev(p1, t14);
-    			append_dev(p1, t15);
-    			append_dev(p1, t16);
-    			append_dev(div5, t17);
-    			append_dev(div5, p2);
-    			append_dev(p2, t18);
-    			append_dev(p2, t19);
-    			append_dev(p2, t20);
-    			append_dev(p2, t21);
+    			append_dev(div4, t9);
+    			append_dev(div4, span1);
+    			append_dev(div25, t11);
+    			append_dev(div25, div24);
+    			append_dev(div24, div8);
+    			append_dev(div8, div6);
+    			append_dev(div8, t13);
+    			append_dev(div8, div7);
+    			append_dev(div7, t14);
+    			append_dev(div24, t15);
+    			append_dev(div24, div11);
+    			append_dev(div11, div9);
+    			append_dev(div11, t17);
+    			append_dev(div11, div10);
+    			append_dev(div10, t18);
+    			append_dev(div10, t19);
+    			append_dev(div10, t20);
+    			append_dev(div24, t21);
+    			append_dev(div24, div14);
+    			append_dev(div14, div12);
+    			append_dev(div14, t23);
+    			append_dev(div14, div13);
+    			append_dev(div13, t24);
+    			append_dev(div13, t25);
+    			append_dev(div13, t26);
+    			append_dev(div24, t27);
+    			append_dev(div24, div17);
+    			append_dev(div17, div15);
+    			append_dev(div17, t29);
+    			append_dev(div17, div16);
+    			append_dev(div16, t30);
+    			append_dev(div16, t31);
+    			append_dev(div16, t32);
+    			append_dev(div24, t33);
+    			append_dev(div24, div20);
+    			append_dev(div20, div18);
+    			append_dev(div20, t35);
+    			append_dev(div20, div19);
+    			append_dev(div19, t36);
+    			append_dev(div19, t37);
+    			append_dev(div19, t38);
+    			append_dev(div24, t39);
+    			append_dev(div24, div23);
+    			append_dev(div23, div21);
+    			append_dev(div23, t41);
+    			append_dev(div23, div22);
+    			append_dev(div22, t42);
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen_dev(input0, "input", /*input0_input_handler*/ ctx[7]),
-    				listen_dev(input1, "input", /*input1_input_handler*/ ctx[8])
+    				listen_dev(input0, "input", /*input0_input_handler*/ ctx[12]),
+    				listen_dev(input1, "input", /*input1_input_handler*/ ctx[13])
     			];
     		},
     		p: function update(ctx, [dirty]) {
@@ -4423,19 +4741,24 @@ var app = (function () {
     				set_input_value(input1, /*ht*/ ctx[1]);
     			}
 
-    			if (dirty & /*currentbmi*/ 4 && t11_value !== (t11_value = (/*currentbmi*/ ctx[2]
-    			? /*currentbmi*/ ctx[2].toFixed(2)
-    			: 0) + "")) set_data_dev(t11, t11_value);
+    			if (dirty & /*currentbmi*/ 4 && t14_value !== (t14_value = (/*currentbmi*/ ctx[2]
+    			? /*currentbmi*/ ctx[2].toFixed(1)
+    			: 0) + "")) set_data_dev(t14, t14_value);
 
-    			if (dirty & /*minnormwt*/ 8 && t14_value !== (t14_value = /*minnormwt*/ ctx[3].toFixed(2) + "")) set_data_dev(t14, t14_value);
-    			if (dirty & /*maxnorwt*/ 16 && t16_value !== (t16_value = /*maxnorwt*/ ctx[4].toFixed(2) + "")) set_data_dev(t16, t16_value);
-    			if (dirty & /*minoverwt*/ 32 && t19_value !== (t19_value = /*minoverwt*/ ctx[5].toFixed(2) + "")) set_data_dev(t19, t19_value);
-    			if (dirty & /*maxoverwt*/ 64 && t21_value !== (t21_value = /*maxoverwt*/ ctx[6].toFixed(2) + "")) set_data_dev(t21, t21_value);
+    			if (dirty & /*minnormwt*/ 8 && t18_value !== (t18_value = /*minnormwt*/ ctx[3].toFixed(1) + "")) set_data_dev(t18, t18_value);
+    			if (dirty & /*maxnorwt*/ 16 && t20_value !== (t20_value = /*maxnorwt*/ ctx[4].toFixed(1) + "")) set_data_dev(t20, t20_value);
+    			if (dirty & /*minoverwt*/ 32 && t24_value !== (t24_value = /*minoverwt*/ ctx[5].toFixed(1) + "")) set_data_dev(t24, t24_value);
+    			if (dirty & /*maxoverwt*/ 64 && t26_value !== (t26_value = /*maxoverwt*/ ctx[6].toFixed(1) + "")) set_data_dev(t26, t26_value);
+    			if (dirty & /*minobese1*/ 128 && t30_value !== (t30_value = /*minobese1*/ ctx[7].toFixed(1) + "")) set_data_dev(t30, t30_value);
+    			if (dirty & /*maxobese1*/ 256 && t32_value !== (t32_value = /*maxobese1*/ ctx[8].toFixed(1) + "")) set_data_dev(t32, t32_value);
+    			if (dirty & /*minobese2*/ 512 && t36_value !== (t36_value = /*minobese2*/ ctx[9].toFixed(1) + "")) set_data_dev(t36, t36_value);
+    			if (dirty & /*maxobese2*/ 1024 && t38_value !== (t38_value = /*maxobese2*/ ctx[10].toFixed(1) + "")) set_data_dev(t38, t38_value);
+    			if (dirty & /*minobese3*/ 2048 && t42_value !== (t42_value = /*minobese3*/ ctx[11].toFixed(1) + "")) set_data_dev(t42, t42_value);
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div7);
+    			if (detaching) detach_dev(div26);
     			run_all(dispose);
     		}
     	};
@@ -4480,7 +4803,12 @@ var app = (function () {
     		minnormwt,
     		maxnorwt,
     		minoverwt,
-    		maxoverwt
+    		maxoverwt,
+    		minobese1,
+    		maxobese1,
+    		minobese2,
+    		maxobese2,
+    		minobese3
     	});
 
     	$$self.$inject_state = $$props => {
@@ -4491,6 +4819,11 @@ var app = (function () {
     		if ("maxnorwt" in $$props) $$invalidate(4, maxnorwt = $$props.maxnorwt);
     		if ("minoverwt" in $$props) $$invalidate(5, minoverwt = $$props.minoverwt);
     		if ("maxoverwt" in $$props) $$invalidate(6, maxoverwt = $$props.maxoverwt);
+    		if ("minobese1" in $$props) $$invalidate(7, minobese1 = $$props.minobese1);
+    		if ("maxobese1" in $$props) $$invalidate(8, maxobese1 = $$props.maxobese1);
+    		if ("minobese2" in $$props) $$invalidate(9, minobese2 = $$props.minobese2);
+    		if ("maxobese2" in $$props) $$invalidate(10, maxobese2 = $$props.maxobese2);
+    		if ("minobese3" in $$props) $$invalidate(11, minobese3 = $$props.minobese3);
     	};
 
     	let currentbmi;
@@ -4498,6 +4831,11 @@ var app = (function () {
     	let maxnorwt;
     	let minoverwt;
     	let maxoverwt;
+    	let minobese1;
+    	let maxobese1;
+    	let minobese2;
+    	let maxobese2;
+    	let minobese3;
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
@@ -4523,6 +4861,26 @@ var app = (function () {
     		if ($$self.$$.dirty & /*ht*/ 2) {
     			 $$invalidate(6, maxoverwt = ht * ht / 10000 * 29.9);
     		}
+
+    		if ($$self.$$.dirty & /*ht*/ 2) {
+    			 $$invalidate(7, minobese1 = ht * ht / 10000 * 30);
+    		}
+
+    		if ($$self.$$.dirty & /*ht*/ 2) {
+    			 $$invalidate(8, maxobese1 = ht * ht / 10000 * 34.9);
+    		}
+
+    		if ($$self.$$.dirty & /*ht*/ 2) {
+    			 $$invalidate(9, minobese2 = ht * ht / 10000 * 35);
+    		}
+
+    		if ($$self.$$.dirty & /*ht*/ 2) {
+    			 $$invalidate(10, maxobese2 = ht * ht / 10000 * 39.9);
+    		}
+
+    		if ($$self.$$.dirty & /*ht*/ 2) {
+    			 $$invalidate(11, minobese3 = ht * ht / 10000 * 40);
+    		}
     	};
 
     	return [
@@ -4533,6 +4891,11 @@ var app = (function () {
     		maxnorwt,
     		minoverwt,
     		maxoverwt,
+    		minobese1,
+    		maxobese1,
+    		minobese2,
+    		maxobese2,
+    		minobese3,
     		input0_input_handler,
     		input1_input_handler
     	];
@@ -4568,6 +4931,7 @@ var app = (function () {
     	let t4;
     	let div4;
     	let t5;
+    	let div6;
     	let current;
     	let dispose;
     	const mycalendar = new MyCalendar({ $$inline: true });
@@ -4584,7 +4948,7 @@ var app = (function () {
     			t1 = space();
     			div1 = element("div");
     			button = element("button");
-    			button.textContent = "-reset-";
+    			button.textContent = "Reset";
     			t3 = space();
     			div3 = element("div");
     			create_component(mycalendar.$$.fragment);
@@ -4592,23 +4956,24 @@ var app = (function () {
     			div4 = element("div");
     			create_component(listtarikh.$$.fragment);
     			t5 = space();
+    			div6 = element("div");
     			create_component(weightsection.$$.fragment);
-    			attr_dev(div0, "class", "title-bar-text");
-    			add_location(div0, file$3, 22, 6, 449);
-    			attr_dev(button, "aria-label", "close");
-    			add_location(button, file$3, 24, 8, 549);
-    			attr_dev(div1, "class", "title-bar-controls");
-    			add_location(div1, file$3, 23, 6, 508);
-    			attr_dev(div2, "id", "title");
-    			attr_dev(div2, "class", "title-bar svelte-52lsfs");
-    			add_location(div2, file$3, 21, 4, 408);
-    			attr_dev(div3, "class", "window-body");
-    			add_location(div3, file$3, 27, 4, 644);
-    			attr_dev(div4, "class", "window-body");
-    			add_location(div4, file$3, 31, 4, 707);
-    			attr_dev(div5, "class", "window");
-    			add_location(div5, file$3, 20, 2, 383);
-    			add_location(main, file$3, 19, 0, 374);
+    			add_location(div0, file$3, 18, 6, 571);
+    			attr_dev(button, "class", "bg-purple-600 hover:bg-purple-800 text-white py-0 px-4 rounded");
+    			add_location(button, file$3, 20, 8, 623);
+    			add_location(div1, file$3, 19, 6, 608);
+    			attr_dev(div2, "class", "flex justify-between bg-purple-500 m-1 uppercase text-center\r\n      tracking-wide border-2 border-purple-500 rounded");
+    			add_location(div2, file$3, 15, 4, 426);
+    			attr_dev(div3, "class", "p-2 border-2 border-purple-500 rounded");
+    			add_location(div3, file$3, 27, 4, 815);
+    			attr_dev(div4, "class", "p-2 border-2 border-purple-500 rounded mt-1");
+    			add_location(div4, file$3, 31, 4, 909);
+    			attr_dev(div5, "class", "bg-purple-300 m-2 shadow-2xl rounded-lg");
+    			add_location(div5, file$3, 14, 2, 367);
+    			attr_dev(div6, "class", "");
+    			add_location(div6, file$3, 35, 2, 1014);
+    			attr_dev(main, "class", "sm:flex-row md:flex pt-6");
+    			add_location(main, file$3, 13, 0, 324);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4628,7 +4993,8 @@ var app = (function () {
     			append_dev(div5, div4);
     			mount_component(listtarikh, div4, null);
     			append_dev(main, t5);
-    			mount_component(weightsection, main, null);
+    			append_dev(main, div6);
+    			mount_component(weightsection, div6, null);
     			current = true;
     			if (remount) dispose();
     			dispose = listen_dev(button, "click", handleClick, false, false, false);

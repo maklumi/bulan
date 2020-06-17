@@ -11,28 +11,29 @@
   }
 </script>
 
-<style>
-  #title {
-    justify-content: stretch;
-  }
-</style>
-
-<main>
-  <div class="window">
-    <div id="title" class="title-bar">
-      <div class="title-bar-text">Obstetric Calendar</div>
-      <div class="title-bar-controls">
-        <button aria-label="close" on:click={handleClick}>-reset-</button>
+<main class="sm:flex-row md:flex pt-6">
+  <div class="bg-purple-300 m-2 shadow-2xl rounded-lg">
+    <div
+      class="flex justify-between bg-purple-500 m-1 uppercase text-center
+      tracking-wide border-2 border-purple-500 rounded">
+      <div>Obstetric Calendar</div>
+      <div>
+        <button
+          on:click={handleClick}
+          class="bg-purple-600 hover:bg-purple-800 text-white py-0 px-4 rounded">
+          Reset
+        </button>
       </div>
     </div>
-    <div class="window-body">
+    <div class="p-2 border-2 border-purple-500 rounded">
       <MyCalendar />
     </div>
 
-    <div class="window-body">
+    <div class="p-2 border-2 border-purple-500 rounded mt-1">
       <ListTarikh />
     </div>
   </div>
-
-  <WeightSection />
+  <div class="">
+    <WeightSection />
+  </div>
 </main>

@@ -1,20 +1,37 @@
 import { writable } from 'svelte/store'
+import { getTime, differenceInMilliseconds } from 'date-fns'
 
 const senaraiTarikh = writable([])
 
 export const tambah = (tarikh, newgest) => {
-  const hhmm = tarikh.slice(-5)
+  const tnow = new Date()
 
   senaraiTarikh.update((values) => {
-    const objindex = values.findIndex((obj) => obj.id === hhmm)
-    if (objindex === -1) {
-      const newobj = { id: hhmm, masa: tarikh, gest: newgest }
-      return [...values, newobj]
+    if (values.length > 0) {
+      const lastItem = values[values.length - 1]
+      const lastItemDate = new Date(lastItem.id)
+      const elapsed = differenceInMilliseconds(tnow, lastItemDate)
+      if (elapsed > 10000) {
+        // if more than 10 seconds, create
+        const newobj = { id: getTime(tnow), masa: tarikh, gest: newgest }
+        return [...values, newobj]
+      } else {
+        // if less than that, update the last one
+        const index = values.findIndex((item) => item.id === lastItem.id)
+        values[index].masa = tarikh
+        values[index].gest = newgest
+        return [...values]
+      }
     } else {
-      values[objindex].masa = tarikh
-      values[objindex].gest = newgest
-      return [...values]
+      // for initialization when values is empty
+      return [{ id: getTime(tnow), masa: tarikh, gest: newgest }]
     }
+  })
+}
+
+export const padam = (id) => {
+  senaraiTarikh.update((senaraiAsal) => {
+    return senaraiAsal.filter((item) => item.id !== id)
   })
 }
 
