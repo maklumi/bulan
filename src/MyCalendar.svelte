@@ -1,5 +1,11 @@
 <script>
-  import { format, addDays, set, differenceInCalendarDays } from 'date-fns'
+  import {
+    format,
+    addDays,
+    set,
+    differenceInCalendarDays,
+    isValid,
+  } from 'date-fns'
   import { ms } from 'date-fns/locale'
   import { tambah, resetvalue } from './stor'
 
@@ -48,7 +54,6 @@
     if (isNotValid(arr)) return
     lmp = set(new Date(), { year: arr[0], month: arr[1] - 1, date: arr[2] })
     edd = addDays(lmp, 280)
-    // console.log(`lmp ${arr}`);
   }
 
   function handleEDD(event) {
@@ -65,7 +70,6 @@
   }
 
   function difference(firstDate, secondDate) {
-    today = new Date()
     let daysDif = differenceInCalendarDays(firstDate, secondDate)
     let newgest = { week: Math.floor(daysDif / 7), days: daysDif % 7 }
     tambah(format(lmp, 'd-MMM-yyyy HH:mm'), newgest)
@@ -77,12 +81,31 @@
     return addDays(lmp, days)
   }
 
-  $: somevalue = handlereset($resetvalue)
+  $: handlereset($resetvalue)
 
   function handlereset(resetvalue) {
     lmp = new Date()
     givenWeeks = 0
     givenDays = 0
+    searchDate = format(lmp, 'yyyy-MM-dd')
+    start = searchDate
+  }
+
+  $: searchDate = isValid(countedDate)
+    ? format(countedDate, 'yyyy-MM-dd')
+    : format(new Date(), 'yyyy-MM-dd')
+
+  function handleSearchDate(event) {
+    let arr = event.target.value.split('-')
+    if (isNotValid(arr)) return
+    let adate = set(new Date(), {
+      year: arr[0],
+      month: arr[1] - 1,
+      date: arr[2],
+    })
+    let newgest = difference(adate, lmp)
+    givenWeeks = newgest.week
+    givenDays = newgest.days
   }
 </script>
 
@@ -135,11 +158,21 @@
       <td>{week38}</td>
     </tr>
     <tr id="weday" class="bg-purple-400">
-      <td colspan="2">
-        <input type="number" style="width:3em" bind:value={givenWeeks} />
-        W
-        <input type="number" style="width:3em" bind:value={givenDays} />
-        D: {toStr(countedDate)}
+      <td>
+        <span>
+          <input type="number" style="width:2em" bind:value={givenWeeks} />
+          W
+          <input type="number" style="width:2em" bind:value={givenDays} />
+          D:
+        </span>
+        <!-- {toStr(countedDate)} -->
+      </td>
+      <td>
+        <input
+          type="date"
+          value={searchDate}
+          on:change={handleSearchDate}
+          max="9999-12-31" />
       </td>
     </tr>
   </tbody>

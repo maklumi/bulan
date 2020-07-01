@@ -3567,23 +3567,21 @@ var app = (function () {
     	let td4;
     	let t7;
     	let td5;
-    	let t8_value = format(/*today*/ ctx[2], "d/M/yy h:mm b") + "";
-    	let t8;
     	let t9;
     	let tr3;
     	let td6;
     	let t11;
     	let td7;
-    	let t12_value = (/*gest*/ ctx[5].week ? /*gest*/ ctx[5].week : "0") + "";
+    	let t12_value = (/*gest*/ ctx[4].week ? /*gest*/ ctx[4].week : "0") + "";
     	let t12;
     	let t13;
-    	let t14_value = (/*gest*/ ctx[5].week > 1 ? "weeks" : "week") + "";
+    	let t14_value = (/*gest*/ ctx[4].week > 1 ? "weeks" : "week") + "";
     	let t14;
     	let t15;
-    	let t16_value = (/*gest*/ ctx[5].days ? /*gest*/ ctx[5].days : "0") + "";
+    	let t16_value = (/*gest*/ ctx[4].days ? /*gest*/ ctx[4].days : "0") + "";
     	let t16;
     	let t17;
-    	let t18_value = (/*gest*/ ctx[5].days > 1 ? "days" : "day") + "";
+    	let t18_value = (/*gest*/ ctx[4].days > 1 ? "days" : "day") + "";
     	let t18;
     	let t19;
     	let tr4;
@@ -3606,12 +3604,14 @@ var app = (function () {
     	let t31;
     	let tr7;
     	let td14;
+    	let span;
     	let input2;
     	let t32;
     	let input3;
     	let t33;
-    	let t34_value = toStr(/*countedDate*/ ctx[9]) + "";
     	let t34;
+    	let td15;
+    	let input4;
     	let dispose;
 
     	const block = {
@@ -3637,7 +3637,7 @@ var app = (function () {
     			td4.textContent = "Today is";
     			t7 = space();
     			td5 = element("td");
-    			t8 = text(t8_value);
+    			td5.textContent = `${format(/*today*/ ctx[9], "d/M/yy h:mm b")}`;
     			t9 = space();
     			tr3 = element("tr");
     			td6 = element("td");
@@ -3657,84 +3657,92 @@ var app = (function () {
     			td8.textContent = "20 weeks:";
     			t21 = space();
     			td9 = element("td");
-    			t22 = text(/*week20*/ ctx[6]);
+    			t22 = text(/*week20*/ ctx[5]);
     			t23 = space();
     			tr5 = element("tr");
     			td10 = element("td");
     			td10.textContent = "30 weeks:";
     			t25 = space();
     			td11 = element("td");
-    			t26 = text(/*week30*/ ctx[7]);
+    			t26 = text(/*week30*/ ctx[6]);
     			t27 = space();
     			tr6 = element("tr");
     			td12 = element("td");
     			td12.textContent = "38 weeks:";
     			t29 = space();
     			td13 = element("td");
-    			t30 = text(/*week38*/ ctx[8]);
+    			t30 = text(/*week38*/ ctx[7]);
     			t31 = space();
     			tr7 = element("tr");
     			td14 = element("td");
+    			span = element("span");
     			input2 = element("input");
-    			t32 = text("\r\n        W\r\n        ");
+    			t32 = text("\r\n          W\r\n          ");
     			input3 = element("input");
-    			t33 = text("\r\n        D: ");
-    			t34 = text(t34_value);
-    			add_location(td0, file, 91, 6, 2340);
+    			t33 = text("\r\n          D:");
+    			t34 = space();
+    			td15 = element("td");
+    			input4 = element("input");
+    			add_location(td0, file, 114, 6, 2835);
     			attr_dev(input0, "type", "date");
-    			input0.value = /*start*/ ctx[3];
+    			input0.value = /*start*/ ctx[2];
     			attr_dev(input0, "max", "9999-12-31");
-    			add_location(input0, file, 93, 8, 2375);
-    			add_location(td1, file, 92, 6, 2361);
+    			add_location(input0, file, 116, 8, 2870);
+    			add_location(td1, file, 115, 6, 2856);
     			attr_dev(tr0, "id", "lmp");
     			attr_dev(tr0, "class", "bg-pink-400");
-    			add_location(tr0, file, 90, 4, 2299);
-    			add_location(td2, file, 102, 6, 2565);
+    			add_location(tr0, file, 113, 4, 2794);
+    			add_location(td2, file, 125, 6, 3060);
     			attr_dev(input1, "type", "date");
-    			input1.value = /*endDate*/ ctx[4];
+    			input1.value = /*endDate*/ ctx[3];
     			attr_dev(input1, "max", "9999-12-31");
-    			add_location(input1, file, 104, 8, 2600);
-    			add_location(td3, file, 103, 6, 2586);
+    			add_location(input1, file, 127, 8, 3095);
+    			add_location(td3, file, 126, 6, 3081);
     			attr_dev(tr1, "id", "edd");
     			attr_dev(tr1, "class", "bg-pink-500");
-    			add_location(tr1, file, 101, 4, 2524);
-    			add_location(td4, file, 113, 6, 2820);
-    			add_location(td5, file, 114, 6, 2845);
+    			add_location(tr1, file, 124, 4, 3019);
+    			add_location(td4, file, 136, 6, 3315);
+    			add_location(td5, file, 137, 6, 3340);
     			attr_dev(tr2, "id", "today");
     			attr_dev(tr2, "class", "uppercase font-medium tracking-wider");
-    			add_location(tr2, file, 112, 4, 2752);
-    			add_location(td6, file, 118, 6, 2963);
+    			add_location(tr2, file, 135, 4, 3247);
+    			add_location(td6, file, 141, 6, 3458);
     			attr_dev(td7, "id", "gestval");
-    			add_location(td7, file, 119, 6, 2990);
+    			add_location(td7, file, 142, 6, 3485);
     			attr_dev(tr3, "id", "gest");
     			attr_dev(tr3, "class", "bg-indigo-300 font-semibold");
-    			add_location(tr3, file, 117, 4, 2905);
-    			add_location(td8, file, 125, 6, 3214);
-    			add_location(td9, file, 126, 6, 3240);
+    			add_location(tr3, file, 140, 4, 3400);
+    			add_location(td8, file, 148, 6, 3709);
+    			add_location(td9, file, 149, 6, 3735);
     			attr_dev(tr4, "class", "font-light");
-    			add_location(tr4, file, 124, 4, 3183);
-    			add_location(td10, file, 129, 6, 3305);
-    			add_location(td11, file, 130, 6, 3331);
+    			add_location(tr4, file, 147, 4, 3678);
+    			add_location(td10, file, 152, 6, 3800);
+    			add_location(td11, file, 153, 6, 3826);
     			attr_dev(tr5, "class", "font-light");
-    			add_location(tr5, file, 128, 4, 3274);
-    			add_location(td12, file, 133, 6, 3397);
-    			add_location(td13, file, 134, 6, 3423);
+    			add_location(tr5, file, 151, 4, 3769);
+    			add_location(td12, file, 156, 6, 3892);
+    			add_location(td13, file, 157, 6, 3918);
     			attr_dev(tr6, "class", "font-normal");
-    			add_location(tr6, file, 132, 4, 3365);
+    			add_location(tr6, file, 155, 4, 3860);
     			attr_dev(input2, "type", "number");
-    			set_style(input2, "width", "3em");
-    			add_location(input2, file, 138, 8, 3528);
+    			set_style(input2, "width", "2em");
+    			add_location(input2, file, 162, 10, 4029);
     			attr_dev(input3, "type", "number");
-    			set_style(input3, "width", "3em");
-    			add_location(input3, file, 140, 8, 3614);
-    			attr_dev(td14, "colspan", "2");
-    			add_location(td14, file, 137, 6, 3502);
+    			set_style(input3, "width", "2em");
+    			add_location(input3, file, 164, 10, 4119);
+    			add_location(span, file, 161, 8, 4011);
+    			add_location(td14, file, 160, 6, 3997);
+    			attr_dev(input4, "type", "date");
+    			input4.value = /*searchDate*/ ctx[8];
+    			attr_dev(input4, "max", "9999-12-31");
+    			add_location(input4, file, 170, 8, 4288);
+    			add_location(td15, file, 169, 6, 4274);
     			attr_dev(tr7, "id", "weday");
     			attr_dev(tr7, "class", "bg-purple-400");
-    			add_location(tr7, file, 136, 4, 3457);
-    			add_location(tbody, file, 89, 2, 2286);
+    			add_location(tr7, file, 159, 4, 3952);
+    			add_location(tbody, file, 112, 2, 2781);
     			attr_dev(table, "class", "table-auto w-full");
-    			add_location(table, file, 88, 0, 2249);
+    			add_location(table, file, 111, 0, 2744);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3758,7 +3766,6 @@ var app = (function () {
     			append_dev(tr2, td4);
     			append_dev(tr2, t7);
     			append_dev(tr2, td5);
-    			append_dev(td5, t8);
     			append_dev(tbody, t9);
     			append_dev(tbody, tr3);
     			append_dev(tr3, td6);
@@ -3792,39 +3799,42 @@ var app = (function () {
     			append_dev(tbody, t31);
     			append_dev(tbody, tr7);
     			append_dev(tr7, td14);
-    			append_dev(td14, input2);
+    			append_dev(td14, span);
+    			append_dev(span, input2);
     			set_input_value(input2, /*givenWeeks*/ ctx[0]);
-    			append_dev(td14, t32);
-    			append_dev(td14, input3);
+    			append_dev(span, t32);
+    			append_dev(span, input3);
     			set_input_value(input3, /*givenDays*/ ctx[1]);
-    			append_dev(td14, t33);
-    			append_dev(td14, t34);
+    			append_dev(span, t33);
+    			append_dev(tr7, t34);
+    			append_dev(tr7, td15);
+    			append_dev(td15, input4);
     			if (remount) run_all(dispose);
 
     			dispose = [
     				listen_dev(input0, "input", /*handleLMP*/ ctx[10], false, false, false),
     				listen_dev(input1, "change", /*handleEDD*/ ctx[11], false, false, false),
-    				listen_dev(input2, "input", /*input2_input_handler*/ ctx[20]),
-    				listen_dev(input3, "input", /*input3_input_handler*/ ctx[21])
+    				listen_dev(input2, "input", /*input2_input_handler*/ ctx[21]),
+    				listen_dev(input3, "input", /*input3_input_handler*/ ctx[22]),
+    				listen_dev(input4, "change", /*handleSearchDate*/ ctx[12], false, false, false)
     			];
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*start*/ 8) {
-    				prop_dev(input0, "value", /*start*/ ctx[3]);
+    			if (dirty & /*start*/ 4) {
+    				prop_dev(input0, "value", /*start*/ ctx[2]);
     			}
 
-    			if (dirty & /*endDate*/ 16) {
-    				prop_dev(input1, "value", /*endDate*/ ctx[4]);
+    			if (dirty & /*endDate*/ 8) {
+    				prop_dev(input1, "value", /*endDate*/ ctx[3]);
     			}
 
-    			if (dirty & /*today*/ 4 && t8_value !== (t8_value = format(/*today*/ ctx[2], "d/M/yy h:mm b") + "")) set_data_dev(t8, t8_value);
-    			if (dirty & /*gest*/ 32 && t12_value !== (t12_value = (/*gest*/ ctx[5].week ? /*gest*/ ctx[5].week : "0") + "")) set_data_dev(t12, t12_value);
-    			if (dirty & /*gest*/ 32 && t14_value !== (t14_value = (/*gest*/ ctx[5].week > 1 ? "weeks" : "week") + "")) set_data_dev(t14, t14_value);
-    			if (dirty & /*gest*/ 32 && t16_value !== (t16_value = (/*gest*/ ctx[5].days ? /*gest*/ ctx[5].days : "0") + "")) set_data_dev(t16, t16_value);
-    			if (dirty & /*gest*/ 32 && t18_value !== (t18_value = (/*gest*/ ctx[5].days > 1 ? "days" : "day") + "")) set_data_dev(t18, t18_value);
-    			if (dirty & /*week20*/ 64) set_data_dev(t22, /*week20*/ ctx[6]);
-    			if (dirty & /*week30*/ 128) set_data_dev(t26, /*week30*/ ctx[7]);
-    			if (dirty & /*week38*/ 256) set_data_dev(t30, /*week38*/ ctx[8]);
+    			if (dirty & /*gest*/ 16 && t12_value !== (t12_value = (/*gest*/ ctx[4].week ? /*gest*/ ctx[4].week : "0") + "")) set_data_dev(t12, t12_value);
+    			if (dirty & /*gest*/ 16 && t14_value !== (t14_value = (/*gest*/ ctx[4].week > 1 ? "weeks" : "week") + "")) set_data_dev(t14, t14_value);
+    			if (dirty & /*gest*/ 16 && t16_value !== (t16_value = (/*gest*/ ctx[4].days ? /*gest*/ ctx[4].days : "0") + "")) set_data_dev(t16, t16_value);
+    			if (dirty & /*gest*/ 16 && t18_value !== (t18_value = (/*gest*/ ctx[4].days > 1 ? "days" : "day") + "")) set_data_dev(t18, t18_value);
+    			if (dirty & /*week20*/ 32) set_data_dev(t22, /*week20*/ ctx[5]);
+    			if (dirty & /*week30*/ 64) set_data_dev(t26, /*week30*/ ctx[6]);
+    			if (dirty & /*week38*/ 128) set_data_dev(t30, /*week38*/ ctx[7]);
 
     			if (dirty & /*givenWeeks*/ 1 && to_number(input2.value) !== /*givenWeeks*/ ctx[0]) {
     				set_input_value(input2, /*givenWeeks*/ ctx[0]);
@@ -3834,7 +3844,9 @@ var app = (function () {
     				set_input_value(input3, /*givenDays*/ ctx[1]);
     			}
 
-    			if (dirty & /*countedDate*/ 512 && t34_value !== (t34_value = toStr(/*countedDate*/ ctx[9]) + "")) set_data_dev(t34, t34_value);
+    			if (dirty & /*searchDate*/ 256) {
+    				prop_dev(input4, "value", /*searchDate*/ ctx[8]);
+    			}
     		},
     		i: noop,
     		o: noop,
@@ -3877,7 +3889,7 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let $resetvalue;
     	validate_store(resetvalue, "resetvalue");
-    	component_subscribe($$self, resetvalue, $$value => $$invalidate(15, $resetvalue = $$value));
+    	component_subscribe($$self, resetvalue, $$value => $$invalidate(16, $resetvalue = $$value));
     	let lmp = new Date();
     	let edd = addDays(lmp, 280);
     	let rightDate = new Date();
@@ -3889,30 +3901,29 @@ var app = (function () {
     		let arr = event.target.value.split("-");
     		if (isNotValid(arr)) return;
 
-    		$$invalidate(12, lmp = set(new Date(), {
+    		$$invalidate(13, lmp = set(new Date(), {
     			year: arr[0],
     			month: arr[1] - 1,
     			date: arr[2]
     		}));
 
-    		$$invalidate(13, edd = addDays(lmp, 280));
-    	} // console.log(`lmp ${arr}`);
+    		$$invalidate(14, edd = addDays(lmp, 280));
+    	}
 
     	function handleEDD(event) {
     		let arr = event.target.value.split("-");
     		if (isNotValid(arr)) return;
 
-    		$$invalidate(13, edd = set(new Date(), {
+    		$$invalidate(14, edd = set(new Date(), {
     			year: arr[0],
     			month: arr[1] - 1,
     			date: arr[2]
     		}));
 
-    		$$invalidate(12, lmp = addDays(edd, -280));
+    		$$invalidate(13, lmp = addDays(edd, -280));
     	}
 
     	function difference(firstDate, secondDate) {
-    		$$invalidate(2, today = new Date());
     		let daysDif = differenceInCalendarDays(firstDate, secondDate);
 
     		let newgest = {
@@ -3930,9 +3941,26 @@ var app = (function () {
     	}
 
     	function handlereset(resetvalue) {
-    		$$invalidate(12, lmp = new Date());
+    		$$invalidate(13, lmp = new Date());
     		$$invalidate(0, givenWeeks = 0);
     		$$invalidate(1, givenDays = 0);
+    		$$invalidate(8, searchDate = format(lmp, "yyyy-MM-dd"));
+    		$$invalidate(2, start = searchDate);
+    	}
+
+    	function handleSearchDate(event) {
+    		let arr = event.target.value.split("-");
+    		if (isNotValid(arr)) return;
+
+    		let adate = set(new Date(), {
+    			year: arr[0],
+    			month: arr[1] - 1,
+    			date: arr[2]
+    		});
+
+    		let newgest = difference(adate, lmp);
+    		$$invalidate(0, givenWeeks = newgest.week);
+    		$$invalidate(1, givenDays = newgest.days);
     	}
 
     	const writable_props = [];
@@ -3959,6 +3987,7 @@ var app = (function () {
     		addDays,
     		set,
     		differenceInCalendarDays,
+    		isValid,
     		ms: locale$1,
     		tambah,
     		resetvalue,
@@ -3976,6 +4005,7 @@ var app = (function () {
     		difference,
     		calculateDate,
     		handlereset,
+    		handleSearchDate,
     		start,
     		endDate,
     		gest,
@@ -3983,25 +4013,25 @@ var app = (function () {
     		week30,
     		week38,
     		countedDate,
-    		somevalue,
-    		$resetvalue
+    		$resetvalue,
+    		searchDate
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("lmp" in $$props) $$invalidate(12, lmp = $$props.lmp);
-    		if ("edd" in $$props) $$invalidate(13, edd = $$props.edd);
-    		if ("rightDate" in $$props) $$invalidate(16, rightDate = $$props.rightDate);
+    		if ("lmp" in $$props) $$invalidate(13, lmp = $$props.lmp);
+    		if ("edd" in $$props) $$invalidate(14, edd = $$props.edd);
+    		if ("rightDate" in $$props) $$invalidate(17, rightDate = $$props.rightDate);
     		if ("givenWeeks" in $$props) $$invalidate(0, givenWeeks = $$props.givenWeeks);
     		if ("givenDays" in $$props) $$invalidate(1, givenDays = $$props.givenDays);
-    		if ("today" in $$props) $$invalidate(2, today = $$props.today);
-    		if ("start" in $$props) $$invalidate(3, start = $$props.start);
-    		if ("endDate" in $$props) $$invalidate(4, endDate = $$props.endDate);
-    		if ("gest" in $$props) $$invalidate(5, gest = $$props.gest);
-    		if ("week20" in $$props) $$invalidate(6, week20 = $$props.week20);
-    		if ("week30" in $$props) $$invalidate(7, week30 = $$props.week30);
-    		if ("week38" in $$props) $$invalidate(8, week38 = $$props.week38);
-    		if ("countedDate" in $$props) $$invalidate(9, countedDate = $$props.countedDate);
-    		if ("somevalue" in $$props) somevalue = $$props.somevalue;
+    		if ("today" in $$props) $$invalidate(9, today = $$props.today);
+    		if ("start" in $$props) $$invalidate(2, start = $$props.start);
+    		if ("endDate" in $$props) $$invalidate(3, endDate = $$props.endDate);
+    		if ("gest" in $$props) $$invalidate(4, gest = $$props.gest);
+    		if ("week20" in $$props) $$invalidate(5, week20 = $$props.week20);
+    		if ("week30" in $$props) $$invalidate(6, week30 = $$props.week30);
+    		if ("week38" in $$props) $$invalidate(7, week38 = $$props.week38);
+    		if ("countedDate" in $$props) $$invalidate(15, countedDate = $$props.countedDate);
+    		if ("searchDate" in $$props) $$invalidate(8, searchDate = $$props.searchDate);
     	};
 
     	let start;
@@ -4011,62 +4041,69 @@ var app = (function () {
     	let week30;
     	let week38;
     	let countedDate;
-    	let somevalue;
+    	let searchDate;
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*lmp*/ 4096) {
-    			 $$invalidate(3, start = [lmp.getFullYear(), pad(lmp.getMonth() + 1, 2), pad(lmp.getDate(), 2)].join("-"));
+    		if ($$self.$$.dirty & /*lmp*/ 8192) {
+    			 $$invalidate(2, start = [lmp.getFullYear(), pad(lmp.getMonth() + 1, 2), pad(lmp.getDate(), 2)].join("-"));
     		}
 
-    		if ($$self.$$.dirty & /*edd*/ 8192) {
-    			 $$invalidate(4, endDate = [edd.getFullYear(), pad(edd.getMonth() + 1, 2), pad(edd.getDate(), 2)].join("-"));
+    		if ($$self.$$.dirty & /*edd*/ 16384) {
+    			 $$invalidate(3, endDate = [edd.getFullYear(), pad(edd.getMonth() + 1, 2), pad(edd.getDate(), 2)].join("-"));
     		}
 
-    		if ($$self.$$.dirty & /*lmp*/ 4096) {
-    			 $$invalidate(5, gest = difference(rightDate, lmp));
+    		if ($$self.$$.dirty & /*lmp*/ 8192) {
+    			 $$invalidate(4, gest = difference(rightDate, lmp));
     		}
 
-    		if ($$self.$$.dirty & /*lmp*/ 4096) {
-    			 $$invalidate(6, week20 = toStr(addDays(lmp, 140)));
+    		if ($$self.$$.dirty & /*lmp*/ 8192) {
+    			 $$invalidate(5, week20 = toStr(addDays(lmp, 140)));
     		}
 
-    		if ($$self.$$.dirty & /*lmp*/ 4096) {
-    			 $$invalidate(7, week30 = toStr(addDays(lmp, 210)));
+    		if ($$self.$$.dirty & /*lmp*/ 8192) {
+    			 $$invalidate(6, week30 = toStr(addDays(lmp, 210)));
     		}
 
-    		if ($$self.$$.dirty & /*lmp*/ 4096) {
-    			 $$invalidate(8, week38 = format(addDays(lmp, 266), "d-MMM-yyyy E"));
+    		if ($$self.$$.dirty & /*lmp*/ 8192) {
+    			 $$invalidate(7, week38 = format(addDays(lmp, 266), "d-MMM-yyyy E"));
     		}
 
     		if ($$self.$$.dirty & /*givenWeeks, givenDays*/ 3) {
-    			 $$invalidate(9, countedDate = calculateDate(givenWeeks, givenDays));
+    			 $$invalidate(15, countedDate = calculateDate(givenWeeks, givenDays));
     		}
 
-    		if ($$self.$$.dirty & /*$resetvalue*/ 32768) {
-    			 somevalue = handlereset();
+    		if ($$self.$$.dirty & /*$resetvalue*/ 65536) {
+    			 handlereset();
+    		}
+
+    		if ($$self.$$.dirty & /*countedDate*/ 32768) {
+    			 $$invalidate(8, searchDate = isValid(countedDate)
+    			? format(countedDate, "yyyy-MM-dd")
+    			: format(new Date(), "yyyy-MM-dd"));
     		}
     	};
 
     	return [
     		givenWeeks,
     		givenDays,
-    		today,
     		start,
     		endDate,
     		gest,
     		week20,
     		week30,
     		week38,
-    		countedDate,
+    		searchDate,
+    		today,
     		handleLMP,
     		handleEDD,
+    		handleSearchDate,
     		lmp,
     		edd,
-    		somevalue,
+    		countedDate,
     		$resetvalue,
     		rightDate,
     		difference,
@@ -4102,7 +4139,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (11:0) {#if senaraiPesakit.length !== 0}
+    // (22:0) {#if senaraiPesakit.length !== 0}
     function create_if_block(ctx) {
     	let p;
     	let t0;
@@ -4114,7 +4151,7 @@ var app = (function () {
     			p = element("p");
     			t0 = text("Bilangan kiraan: ");
     			t1 = text(t1_value);
-    			add_location(p, file$1, 11, 2, 279);
+    			add_location(p, file$1, 22, 2, 442);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -4133,14 +4170,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(11:0) {#if senaraiPesakit.length !== 0}",
+    		source: "(22:0) {#if senaraiPesakit.length !== 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (24:2) {:else}
+    // (35:2) {:else}
     function create_else_block(ctx) {
     	let div;
 
@@ -4148,7 +4185,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Selamat Bertugas";
-    			add_location(div, file$1, 24, 4, 663);
+    			add_location(div, file$1, 35, 4, 874);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4162,28 +4199,32 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(24:2) {:else}",
+    		source: "(35:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (15:2) {#each senaraiPesakit as { id, masa, gest }}
+    // (26:2) {#each senaraiPesakit as { id, masa, gest }}
     function create_each_block(ctx) {
     	let li;
+    	let button;
+    	let t0_value = /*masa*/ ctx[5].slice(-5) + "";
     	let t0;
-    	let t1_value = /*masa*/ ctx[5] + "";
     	let t1;
+    	let div;
     	let t2;
-    	let t3_value = /*gest*/ ctx[6].week + "";
+    	let t3_value = /*masa*/ ctx[5].slice(0, -5) + "";
     	let t3;
     	let t4;
-    	let t5_value = /*gest*/ ctx[6].days + "";
+    	let t5_value = /*gest*/ ctx[6].week + "";
     	let t5;
     	let t6;
-    	let button;
+    	let t7_value = /*gest*/ ctx[6].days + "";
+    	let t7;
     	let t8;
+    	let t9;
     	let dispose;
 
     	function click_handler(...args) {
@@ -4193,40 +4234,47 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
-    			t0 = text("LMP: ");
-    			t1 = text(t1_value);
-    			t2 = text(" Gest: ");
-    			t3 = text(t3_value);
-    			t4 = text("+");
-    			t5 = text(t5_value);
-    			t6 = text("/7\r\n      ");
     			button = element("button");
-    			button.textContent = "X";
-    			t8 = space();
-    			attr_dev(button, "class", "bg-purple-400 hover:bg-purple-600 text-white px-1 py-0 ");
-    			add_location(button, file$1, 17, 6, 490);
-    			attr_dev(li, "class", "py-1 flex justify-between");
-    			add_location(li, file$1, 15, 4, 393);
+    			t0 = text(t0_value);
+    			t1 = space();
+    			div = element("div");
+    			t2 = text("LMP: ");
+    			t3 = text(t3_value);
+    			t4 = text(" POA: ");
+    			t5 = text(t5_value);
+    			t6 = text("+");
+    			t7 = text(t7_value);
+    			t8 = text("/7");
+    			t9 = space();
+    			attr_dev(button, "class", "bg-purple-400 hover:bg-purple-600 text-white px-1 py-0  svelte-jwym80");
+    			add_location(button, file$1, 27, 6, 612);
+    			add_location(div, file$1, 32, 6, 780);
+    			attr_dev(li, "class", "py-1 flex justify-between mt-1 px-1 svelte-jwym80");
+    			add_location(li, file$1, 26, 4, 556);
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, li, anchor);
-    			append_dev(li, t0);
-    			append_dev(li, t1);
-    			append_dev(li, t2);
-    			append_dev(li, t3);
-    			append_dev(li, t4);
-    			append_dev(li, t5);
-    			append_dev(li, t6);
     			append_dev(li, button);
-    			append_dev(li, t8);
+    			append_dev(button, t0);
+    			append_dev(li, t1);
+    			append_dev(li, div);
+    			append_dev(div, t2);
+    			append_dev(div, t3);
+    			append_dev(div, t4);
+    			append_dev(div, t5);
+    			append_dev(div, t6);
+    			append_dev(div, t7);
+    			append_dev(div, t8);
+    			append_dev(li, t9);
     			if (remount) dispose();
     			dispose = listen_dev(button, "click", click_handler, false, false, false);
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*senaraiPesakit*/ 1 && t1_value !== (t1_value = /*masa*/ ctx[5] + "")) set_data_dev(t1, t1_value);
-    			if (dirty & /*senaraiPesakit*/ 1 && t3_value !== (t3_value = /*gest*/ ctx[6].week + "")) set_data_dev(t3, t3_value);
-    			if (dirty & /*senaraiPesakit*/ 1 && t5_value !== (t5_value = /*gest*/ ctx[6].days + "")) set_data_dev(t5, t5_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t0_value !== (t0_value = /*masa*/ ctx[5].slice(-5) + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t3_value !== (t3_value = /*masa*/ ctx[5].slice(0, -5) + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t5_value !== (t5_value = /*gest*/ ctx[6].week + "")) set_data_dev(t5, t5_value);
+    			if (dirty & /*senaraiPesakit*/ 1 && t7_value !== (t7_value = /*gest*/ ctx[6].days + "")) set_data_dev(t7, t7_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -4238,7 +4286,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(15:2) {#each senaraiPesakit as { id, masa, gest }}",
+    		source: "(26:2) {#each senaraiPesakit as { id, masa, gest }}",
     		ctx
     	});
 
@@ -4282,8 +4330,8 @@ var app = (function () {
     				each_1_else.c();
     			}
 
-    			add_location(p, file$1, 9, 0, 204);
-    			add_location(ol, file$1, 13, 0, 335);
+    			add_location(p, file$1, 20, 0, 367);
+    			add_location(ol, file$1, 24, 0, 498);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4317,7 +4365,7 @@ var app = (function () {
     				if_block = null;
     			}
 
-    			if (dirty & /*padam, senaraiPesakit*/ 1) {
+    			if (dirty & /*senaraiPesakit, padam*/ 1) {
     				each_value = /*senaraiPesakit*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -4920,7 +4968,7 @@ var app = (function () {
 
     function create_fragment$3(ctx) {
     	let main;
-    	let div5;
+    	let div4;
     	let div2;
     	let div0;
     	let t1;
@@ -4929,19 +4977,19 @@ var app = (function () {
     	let t3;
     	let div3;
     	let t4;
-    	let div4;
+    	let div5;
     	let t5;
     	let div6;
     	let current;
     	let dispose;
     	const mycalendar = new MyCalendar({ $$inline: true });
-    	const listtarikh = new LisTarikh({ $$inline: true });
     	const weightsection = new BMI({ $$inline: true });
+    	const listtarikh = new LisTarikh({ $$inline: true });
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div5 = element("div");
+    			div4 = element("div");
     			div2 = element("div");
     			div0 = element("div");
     			div0.textContent = "Obstetric Calendar";
@@ -4953,48 +5001,48 @@ var app = (function () {
     			div3 = element("div");
     			create_component(mycalendar.$$.fragment);
     			t4 = space();
-    			div4 = element("div");
-    			create_component(listtarikh.$$.fragment);
+    			div5 = element("div");
+    			create_component(weightsection.$$.fragment);
     			t5 = space();
     			div6 = element("div");
-    			create_component(weightsection.$$.fragment);
-    			add_location(div0, file$3, 18, 6, 571);
+    			create_component(listtarikh.$$.fragment);
+    			add_location(div0, file$3, 18, 6, 581);
     			attr_dev(button, "class", "bg-purple-600 hover:bg-purple-800 text-white py-0 px-4 rounded");
-    			add_location(button, file$3, 20, 8, 623);
-    			add_location(div1, file$3, 19, 6, 608);
+    			add_location(button, file$3, 20, 8, 633);
+    			add_location(div1, file$3, 19, 6, 618);
     			attr_dev(div2, "class", "flex justify-between bg-purple-500 m-1 uppercase text-center\r\n      tracking-wide border-2 border-purple-500 rounded");
-    			add_location(div2, file$3, 15, 4, 426);
+    			add_location(div2, file$3, 15, 4, 436);
     			attr_dev(div3, "class", "p-2 border-2 border-purple-500 rounded");
-    			add_location(div3, file$3, 27, 4, 815);
-    			attr_dev(div4, "class", "p-2 border-2 border-purple-500 rounded mt-1");
-    			add_location(div4, file$3, 31, 4, 909);
-    			attr_dev(div5, "class", "bg-purple-300 m-2 shadow-2xl rounded-lg");
-    			add_location(div5, file$3, 14, 2, 367);
-    			attr_dev(div6, "class", "");
-    			add_location(div6, file$3, 35, 2, 1014);
+    			add_location(div3, file$3, 27, 4, 825);
+    			attr_dev(div4, "class", "h-full bg-purple-300 m-2 shadow-2xl rounded-lg");
+    			add_location(div4, file$3, 14, 2, 370);
+    			attr_dev(div5, "class", "");
+    			add_location(div5, file$3, 32, 2, 927);
+    			attr_dev(div6, "class", "p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1");
+    			add_location(div6, file$3, 35, 2, 978);
     			attr_dev(main, "class", "sm:flex-row md:flex pt-6");
-    			add_location(main, file$3, 13, 0, 324);
+    			add_location(main, file$3, 13, 0, 327);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor, remount) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div5);
-    			append_dev(div5, div2);
+    			append_dev(main, div4);
+    			append_dev(div4, div2);
     			append_dev(div2, div0);
     			append_dev(div2, t1);
     			append_dev(div2, div1);
     			append_dev(div1, button);
-    			append_dev(div5, t3);
-    			append_dev(div5, div3);
+    			append_dev(div4, t3);
+    			append_dev(div4, div3);
     			mount_component(mycalendar, div3, null);
-    			append_dev(div5, t4);
-    			append_dev(div5, div4);
-    			mount_component(listtarikh, div4, null);
+    			append_dev(main, t4);
+    			append_dev(main, div5);
+    			mount_component(weightsection, div5, null);
     			append_dev(main, t5);
     			append_dev(main, div6);
-    			mount_component(weightsection, div6, null);
+    			mount_component(listtarikh, div6, null);
     			current = true;
     			if (remount) dispose();
     			dispose = listen_dev(button, "click", handleClick, false, false, false);
@@ -5003,21 +5051,21 @@ var app = (function () {
     		i: function intro(local) {
     			if (current) return;
     			transition_in(mycalendar.$$.fragment, local);
-    			transition_in(listtarikh.$$.fragment, local);
     			transition_in(weightsection.$$.fragment, local);
+    			transition_in(listtarikh.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(mycalendar.$$.fragment, local);
-    			transition_out(listtarikh.$$.fragment, local);
     			transition_out(weightsection.$$.fragment, local);
+    			transition_out(listtarikh.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			destroy_component(mycalendar);
-    			destroy_component(listtarikh);
     			destroy_component(weightsection);
+    			destroy_component(listtarikh);
     			dispose();
     		}
     	};
@@ -5052,21 +5100,9 @@ var app = (function () {
     		ListTarikh: LisTarikh,
     		resetvalue,
     		WeightSection: BMI,
-    		handleClick,
-    		repeats
+    		handleClick
     	});
 
-    	$$self.$inject_state = $$props => {
-    		if ("repeats" in $$props) repeats = $$props.repeats;
-    	};
-
-    	let repeats;
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	 repeats = [1];
     	return [];
     }
 

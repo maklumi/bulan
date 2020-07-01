@@ -4,7 +4,7 @@
   import { resetvalue } from './stor.js'
   import WeightSection from './components/BMI.svelte'
 
-  $: repeats = [1]
+  // $: repeats = [1]
 
   function handleClick() {
     resetvalue.update((value) => (value = !value))
@@ -12,7 +12,7 @@
 </script>
 
 <main class="sm:flex-row md:flex pt-6">
-  <div class="bg-purple-300 m-2 shadow-2xl rounded-lg">
+  <div class="h-full bg-purple-300 m-2 shadow-2xl rounded-lg">
     <div
       class="flex justify-between bg-purple-500 m-1 uppercase text-center
       tracking-wide border-2 border-purple-500 rounded">
@@ -29,11 +29,11 @@
       <MyCalendar />
     </div>
 
-    <div class="p-2 border-2 border-purple-500 rounded mt-1">
-      <ListTarikh />
-    </div>
   </div>
   <div class="">
     <WeightSection />
+  </div>
+  <div class="p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1">
+    <ListTarikh />
   </div>
 </main>
