@@ -1,28 +1,29 @@
 <script>
-  let wt = 50
-  let ht = 150
-  $: currentbmi = (wt / ht / ht) * 10000
-  $: minnormwt = ((ht * ht) / 10000) * 17
-  $: maxnorwt = ((ht * ht) / 10000) * 24.9
-  $: minoverwt = ((ht * ht) / 10000) * 25
-  $: maxoverwt = ((ht * ht) / 10000) * 29.9
-  $: minobese1 = ((ht * ht) / 10000) * 30
-  $: maxobese1 = ((ht * ht) / 10000) * 34.9
-  $: minobese2 = ((ht * ht) / 10000) * 35
-  $: maxobese2 = ((ht * ht) / 10000) * 39.9
-  $: minobese3 = ((ht * ht) / 10000) * 40
+  let wt = 50;
+  let ht = 150;
+  $: currentbmi = (wt / ht / ht) * 10000;
+  $: minnormwt = ((ht * ht) / 10000) * 17;
+  $: maxnorwt = ((ht * ht) / 10000) * 24.9;
+  $: minoverwt = ((ht * ht) / 10000) * 25;
+  $: maxoverwt = ((ht * ht) / 10000) * 29.9;
+  $: minobese1 = ((ht * ht) / 10000) * 30;
+  $: maxobese1 = ((ht * ht) / 10000) * 34.9;
+  $: minobese2 = ((ht * ht) / 10000) * 35;
+  $: maxobese2 = ((ht * ht) / 10000) * 39.9;
+  $: minobese3 = ((ht * ht) / 10000) * 40;
 </script>
 
 <div class="bg-purple-300 m-2 shadow-2xl rounded-lg">
   <div
     class="flex bg-purple-500 mt-1 p-2 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded ">
+    border-2 border-purple-300 rounded "
+  >
     BMI measurements
   </div>
 
   <div class="p-2">
     <div class="px-2 bg-pink-400 flex justify-around">
-      <label>Weight</label>
+      <span>Weight</span>
       <div class="my-1">
         <div>
           <input id="weight" type="number" min="0" max="1000" bind:value={wt} />
@@ -31,7 +32,7 @@
       </div>
     </div>
     <div class="px-2 bg-pink-500 flex justify-around">
-      <label>Height</label>
+      <span>Height</span>
       <div class="my-1">
         <input id="height" type="number" min="0" max="1000" bind:value={ht} />
         <span>cm</span>
