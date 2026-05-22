@@ -1,0 +1,80 @@
+<script>
+  let birth = '';
+  let age = null;
+  let error = '';
+
+  function compute() {
+    error = '';
+    if (!birth) {
+      age = null;
+      return;
+    }
+
+    const b = new Date(birth + 'T00:00:00');
+    const today = new Date();
+    if (isNaN(b.getTime())) {
+      error = 'Invalid date';
+      age = null;
+      return;
+    }
+    if (b > today) {
+      error = 'Birthdate cannot be in the future';
+      age = null;
+      return;
+    }
+
+    let years = today.getFullYear() - b.getFullYear();
+    let months = today.getMonth() - b.getMonth();
+    let days = today.getDate() - b.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      days += prevMonth.getDate();
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    age = { years, months, days };
+  }
+
+
+  function clear() {
+    birth = '';
+  }
+</script>
+
+<div class="bg-purple-300 m-2 rounded-lg">
+  <div   class="flex bg-purple-500 mt-0 p-2 uppercase text-center tracking-wide
+    border-2 border-purple-300 rounded ">Age Calculator</div>
+
+  <div class="flex items-center gap-2 mb-2">
+    <label for="birthday" class="text-sm m-2">Born</label>
+    <input
+      id="birthday"
+      type="date"
+      bind:value={birth}
+      on:input={compute}
+      class="ml-1 p-2 border rounded"
+      aria-label="Birthdate"
+    />
+    <button on:click={clear} class="ml-auto bg-purple-600 text-white px-3 py-1 rounded">Clear</button>
+  </div>
+
+  {#if error}
+    <div class="text-red-600 text-sm mb-2">{error}</div>
+  {/if}
+
+  {#if age}
+    <div class="text-sm">
+      <div><strong>Years:</strong> {age.years}</div>
+      <div><strong>Months:</strong> {age.months}</div>
+      <div><strong>Days:</strong> {age.days}</div>
+      <div class="mt-2 font-medium">Age: {age.years} years, {age.months} months, {age.days} days</div>
+    </div>
+  {:else}
+    <div class="text-sm text-gray-700">Enter a birthdate to calculate age.</div>
+  {/if}
+</div>

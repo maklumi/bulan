@@ -3,6 +3,7 @@
   import ListTarikh from "./LisTarikh.svelte";
   import { resetvalue } from "./stor.js";
   import WeightSection from "./components/BMI.svelte";
+import AgeCalculator from "./components/AgeCalculator.svelte";
 
   // $: repeats = [1]
 
@@ -37,5 +38,8 @@
   </div>
   <div class="p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1">
     <ListTarikh />
+  </div>
+  <div class="p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1">
+    <AgeCalculator />
   </div>
 </main>
