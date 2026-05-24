@@ -1,8 +1,0 @@
-@tailwind base;
-@tailwind components;
-
-.bmirow {
-  @apply flex justify-between bg-indigo-300 font-semibold;
-}
-
-@tailwind utilities;
