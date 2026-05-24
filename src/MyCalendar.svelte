@@ -111,84 +111,103 @@
   }
 </script>
 
-<table class="table-auto w-full">
-  <tbody>
-    <tr id="lmp" class="bg-pink-400">
-      <td>LMP:</td>
-      <td>
-        <input
-          type="date"
-          value={start}
-          on:input={handleLMP}
-          max="9999-12-31"
-        />
-      </td>
-    </tr>
+<div
+  class="bg-purple-300 m-2 shadow-2xl rounded-lg max-h-max max-w-max flex-col"
+>
+  <div>
+    <div
+      class="bg-purple-500 mt-1 p-2 uppercase text-center tracking-wide
+    border-2 border-purple-300 rounded"
+    >
+      Obstetric Calendar
+    </div>
+    <button
+      on:click={handleClick}
+      class="bg-purple-600 hover:bg-purple-800 text-white py-0 px-4 rounded"
+    >
+      Reset
+    </button>
+  </div>
 
-    <tr id="edd" class="bg-pink-500">
-      <td>EDD:</td>
-      <td>
-        <input
-          type="date"
-          value={endDate}
-          on:change={handleEDD}
-          max="9999-12-31"
-        />
-      </td>
-    </tr>
+  <table class="table-auto w-fit p-2 m-1">
+    <tbody>
+      <tr id="lmp" class="bg-pink-400">
+        <td>LMP:</td>
+        <td>
+          <input
+            type="date"
+            value={start}
+            on:input={handleLMP}
+            max="9999-12-31"
+          />
+        </td>
+      </tr>
 
-    <tr id="today" class="uppercase font-medium tracking-wider">
-      <td>Today is</td>
-      <td>{format(today, "d/M/yy h:mm b")}</td>
-    </tr>
+      <tr id="edd" class="bg-pink-500">
+        <td>EDD:</td>
+        <td>
+          <input
+            type="date"
+            value={endDate}
+            on:change={handleEDD}
+            max="9999-12-31"
+          />
+        </td>
+      </tr>
 
-    <tr id="gest" class="bg-indigo-300 font-semibold">
-      <td>Gestation:</td>
-      <td id="gestval">
-        {gest.week ? gest.week : "0"}
-        {gest.week > 1 ? "weeks" : "week"}
-        {gest.days ? gest.days : "0"}
-        {gest.days > 1 ? "days" : "day"}
-      </td>
-    </tr>
-    <tr class="font-light">
-      <td>14+0 weeks:</td>
-      <td>{week14}</td>
-    </tr>
-    <tr class="font-light">
-      <td>20 weeks:</td>
-      <td>{week20}</td>
-    </tr>
-    <tr class="font-light">
-      <td>30 weeks:</td>
-      <td>{week30}</td>
-    </tr>
-    <tr class="font-light">
-      <td>33+0 weeks:</td>
-      <td>{week33}</td>
-    </tr>
-    <tr class="font-normal">
-      <td>38 weeks:</td>
-      <td>{week38}</td>
-    </tr>
-    <tr id="weday" class="bg-purple-400">
-      <td>
-        <span>
-          <input type="number" style="width:2em" bind:value={givenWeeks} />
-          W
-          <input type="number" style="width:2em" bind:value={givenDays} />
-          D:
-        </span>
-        <!-- {toStr(countedDate)} -->
-      </td>
-      <td>
-        <input
-          type="date"
-          value={searchDate}
-          on:change={handleSearchDate}
-          max="9999-12-31"
-        />
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <tr id="today" class="uppercase font-medium tracking-wider">
+        <td>Today is</td>
+        <td>{format(today, "d/M/yy h:mm b")}</td>
+      </tr>
+
+      <tr id="gest" class="bg-indigo-300 font-semibold">
+        <td>Gestation:</td>
+        <td id="gestval">
+          {gest.week ? gest.week : "0"}
+          {gest.week > 1 ? "weeks" : "week"}
+          {gest.days ? gest.days : "0"}
+          {gest.days > 1 ? "days" : "day"}
+        </td>
+      </tr>
+      <tr class="font-light">
+        <td>14 weeks:</td>
+        <td>{week14}</td>
+      </tr>
+      <tr class="font-light">
+        <td>20 weeks:</td>
+        <td>{week20}</td>
+      </tr>
+      <tr class="font-light">
+        <td>30 weeks:</td>
+        <td>{week30}</td>
+      </tr>
+      <tr class="font-light">
+        <td>33 weeks:</td>
+        <td>{week33}</td>
+      </tr>
+      <tr class="font-light">
+        <td>38 weeks:</td>
+        <td>{week38}</td>
+      </tr>
+      <tr id="weday" class="bg-purple-400">
+        <td>
+          <span>
+            <input type="number" style="width:2em" bind:value={givenWeeks} />
+            W
+            <input type="number" style="width:2em" bind:value={givenDays} />
+            D:
+          </span>
+          <!-- {toStr(countedDate)} -->
+        </td>
+        <td>
+          <input
+            type="date"
+            value={searchDate}
+            on:change={handleSearchDate}
+            max="9999-12-31"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

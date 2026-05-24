@@ -13,10 +13,10 @@
   $: minobese3 = ((ht * ht) / 10000) * 40;
 </script>
 
-<div class="bg-purple-300 m-2 shadow-2xl rounded-lg">
+<div class="bg-purple-300 m-2 shadow-2xl rounded-lg max-h-max max-w-max">
   <div
     class="flex bg-purple-500 mt-1 p-2 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded "
+    border-2 border-purple-300 rounded"
   >
     BMI measurements
   </div>
@@ -39,28 +39,28 @@
       </div>
     </div>
 
-    <div class="flex-col">
-      <div class="bmirow mt-6">
+    <div class="">
+      <div class="flex mt-6 items-center gap-2">
         <div>Current BMI :</div>
-        <div>{currentbmi ? currentbmi.toFixed(1) : 0}</div>
+        <div><strong>{currentbmi ? currentbmi.toFixed(1) : 0}</strong></div>
       </div>
-      <div class="bmirow mt-4">
+      <div class="flex mt-4">
         <div>Normal BMI 17-24.9 :</div>
         <div>{minnormwt.toFixed(1)}-{maxnorwt.toFixed(1)}</div>
       </div>
-      <div class="bmirow mt-1">
+      <div class="flex mt-1">
         <div>Overwt BMI 25-29.9 :</div>
         <div>{minoverwt.toFixed(1)}-{maxoverwt.toFixed(1)}</div>
       </div>
-      <div class="bmirow mt-1">
+      <div class="flex mt-1">
         <div>Obese BMI 30-34.9 :</div>
         <div>{minobese1.toFixed(1)}-{maxobese1.toFixed(1)}</div>
       </div>
-      <div class="bmirow mt-1">
+      <div class="flex mt-1">
         <div>Obese BMI 35-39.9 :</div>
         <div>{minobese2.toFixed(1)}-{maxobese2.toFixed(1)}</div>
       </div>
-      <div class="bmirow mt-1">
+      <div class="flex mt-1">
         <div>Obese BMI 40 :</div>
         <div>{minobese3.toFixed(1)}</div>
       </div>

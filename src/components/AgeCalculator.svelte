@@ -1,24 +1,24 @@
 <script>
-  let birth = '';
+  let birth = "";
   let age = null;
-  let error = '';
+  let error = "";
 
   function compute() {
-    error = '';
+    error = "";
     if (!birth) {
       age = null;
       return;
     }
 
-    const b = new Date(birth + 'T00:00:00');
+    const b = new Date(birth + "T00:00:00");
     const today = new Date();
     if (isNaN(b.getTime())) {
-      error = 'Invalid date';
+      error = "Invalid date";
       age = null;
       return;
     }
     if (b > today) {
-      error = 'Birthdate cannot be in the future';
+      error = "Birthdate cannot be in the future";
       age = null;
       return;
     }
@@ -40,19 +40,22 @@
     age = { years, months, days };
   }
 
-
   function clear() {
-    birth = '';
+    birth = "";
   }
 </script>
 
-<div class="bg-purple-300 m-2 shadow-2xl rounded-lg border-2">
-    <div
+<div
+  class="bg-purple-300 m-2 shadow-2xl rounded-lg border-2 max-h-max max-w-max"
+>
+  <div
     class="flex bg-purple-500 p-2 mb-2 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded "
-  >Age Calculator</div>
+    border-2 border-purple-300 rounded"
+  >
+    Age Calculator
+  </div>
 
-  <div class="flex items-center gap-2 mb-2">
+  <div class="flex-row items-center gap-2 mb-2">
     <label for="birthday" class="text-sm m-2">Born</label>
     <input
       id="birthday"
@@ -62,7 +65,10 @@
       class="p-2 border rounded"
       aria-label="Birthdate"
     />
-    <button on:click={clear} class="mr-2 bg-purple-600 text-white px-3 py-1 rounded">Clear</button>
+    <button
+      on:click={clear}
+      class="m-2 bg-purple-600 text-white px-3 py-1 rounded">Clear</button
+    >
   </div>
 
   {#if error}
@@ -70,13 +76,15 @@
   {/if}
 
   {#if age}
-    <div class="m-2 text-sm">
-      <div><strong>Years:</strong> {age.years}</div>
-      <div><strong>Months:</strong> {age.months}</div>
-      <div><strong>Days:</strong> {age.days}</div>
-      <div class="mt-2 font-medium">Age: {age.years} years, {age.months} months, {age.days} days</div>
+    <div class=" flex m-2 text-sm item-center gap-4">
+      <div>Age:</div>
+      <div><strong> {age.years}</strong> Years</div>
+      <div><strong>{age.months}</strong> Months</div>
+      <div><strong>{age.days}</strong> Days</div>
     </div>
   {:else}
-    <div class="ml-2 text-sm text-gray-700">Enter a birthdate to calculate age.</div>
+    <div class="ml-2 text-sm text-gray-700">
+      Enter a birthdate to calculate age.
+    </div>
   {/if}
 </div>
