@@ -46,9 +46,11 @@
   }
 </script>
 
-<div class="bg-purple-300 m-2 rounded-lg">
-  <div   class="flex bg-purple-500 mt-0 p-2 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded ">Age Calculator</div>
+<div class="bg-purple-300 m-2 shadow-2xl rounded-lg border-2">
+    <div
+    class="flex bg-purple-500 p-2 mb-2 uppercase text-center tracking-wide
+    border-2 border-purple-300 rounded "
+  >Age Calculator</div>
 
   <div class="flex items-center gap-2 mb-2">
     <label for="birthday" class="text-sm m-2">Born</label>
@@ -57,10 +59,10 @@
       type="date"
       bind:value={birth}
       on:input={compute}
-      class="ml-1 p-2 border rounded"
+      class="p-2 border rounded"
       aria-label="Birthdate"
     />
-    <button on:click={clear} class="ml-auto bg-purple-600 text-white px-3 py-1 rounded">Clear</button>
+    <button on:click={clear} class="mr-2 bg-purple-600 text-white px-3 py-1 rounded">Clear</button>
   </div>
 
   {#if error}
@@ -68,13 +70,13 @@
   {/if}
 
   {#if age}
-    <div class="text-sm">
+    <div class="m-2 text-sm">
       <div><strong>Years:</strong> {age.years}</div>
       <div><strong>Months:</strong> {age.months}</div>
       <div><strong>Days:</strong> {age.days}</div>
       <div class="mt-2 font-medium">Age: {age.years} years, {age.months} months, {age.days} days</div>
     </div>
   {:else}
-    <div class="text-sm text-gray-700">Enter a birthdate to calculate age.</div>
+    <div class="ml-2 text-sm text-gray-700">Enter a birthdate to calculate age.</div>
   {/if}
 </div>

@@ -1,9 +1,9 @@
 <script>
   import storTarikh, { padam } from './stor'
-  import { get_store_value } from 'svelte/internal'
 
-  let masaMasuk = $storTarikh[0]
-  $: senaraiPesakit = $storTarikh.slice(1)
+  let masaMasuk;
+  $: masaMasuk = $storTarikh[0];
+  $: senaraiPesakit = $storTarikh.slice(1);
 </script>
 
 <style>
@@ -18,7 +18,7 @@
   }
 </style>
 
-<p>Klinik mula: {masaMasuk.masa}</p>
+<p>Klinik mula: {masaMasuk ? masaMasuk.masa : '—'}</p>
 {#if senaraiPesakit.length !== 0}
   <p>Bilangan kiraan: {senaraiPesakit.length}</p>
 {/if}

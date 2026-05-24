@@ -12,7 +12,7 @@ import AgeCalculator from "./components/AgeCalculator.svelte";
   }
 </script>
 
-<main class="flex justify-center sm:flex-row md:flex pt-6 px-2">
+<main class="flex w-full justify-center sm:flex-row md:flex pt-6 px-2">
   <div class="h-full bg-purple-300 m-2 shadow-2xl rounded-lg">
     <div
       class="flex justify-between bg-purple-500 m-1 border-2 border-purple-500 rounded"
@@ -33,13 +33,13 @@ import AgeCalculator from "./components/AgeCalculator.svelte";
       <MyCalendar />
     </div>
   </div>
-  <div class="">
+  <div class="h-full">
     <WeightSection />
   </div>
   <div class="p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1">
     <ListTarikh />
   </div>
-  <div class="p-2 mt-2 bg-pink-200 border-2 border-purple-500 rounded mt-1">
+  <div class="h-full">
     <AgeCalculator />
   </div>
 </main>
