@@ -14,7 +14,7 @@
 
 <main class="flex flex-row flex-wrap justify-center gap-1">
   <div>
-    <MyCalendar />
+    <MyCalendar  {handleClick}/>
   </div>
   <div>
     <WeightSection />

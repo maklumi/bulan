@@ -83,7 +83,7 @@
       <div><strong>{age.days}</strong> Days</div>
     </div>
   {:else}
-    <div class="ml-2 text-sm text-gray-700">
+    <div class="m-2 text-sm text-gray-700">
       Enter a birthdate to calculate age.
     </div>
   {/if}

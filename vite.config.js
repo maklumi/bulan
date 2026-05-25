@@ -2,9 +2,6 @@ import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-  
-  build: {
-    outDir: 'public'
-  },
+  base: '/bulan/',
   plugins: [svelte()]
 });

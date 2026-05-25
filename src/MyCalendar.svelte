@@ -9,6 +9,7 @@
   import { ms } from "date-fns/locale";
   import { tambah, resetvalue } from "./stor";
 
+  export let handleClick;
   let lmp = new Date();
   let edd = addDays(lmp, 280);
   let rightDate = new Date();
@@ -112,18 +113,17 @@
 </script>
 
 <div
-  class="bg-purple-300 m-2 shadow-2xl rounded-lg max-h-max max-w-max flex-col"
+  class="bg-purple-200 m-2 shadow-2xl rounded h-max max-w-max flex-col border-2 border-purple-300"
 >
   <div>
     <div
-      class="bg-purple-500 mt-1 p-2 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded"
+      class="bg-purple-500 p-2 uppercase text-center rounded-sm"
     >
       Obstetric Calendar
     </div>
     <button
-      on:click={handleClick}
-      class="bg-purple-600 hover:bg-purple-800 text-white py-0 px-4 rounded"
+      class="bg-purple-600 hover:bg-purple-800 text-white py-0 px-2 rounded m-1"
+      on:click={() => handleClick()}
     >
       Reset
     </button>
@@ -131,7 +131,7 @@
 
   <table class="table-auto w-fit p-2 m-1">
     <tbody>
-      <tr id="lmp" class="bg-pink-400">
+      <tr id="lmp" class="bg-pink-300">
         <td>LMP:</td>
         <td>
           <input
@@ -143,7 +143,7 @@
         </td>
       </tr>
 
-      <tr id="edd" class="bg-pink-500">
+      <tr id="edd" class="bg-pink-400">
         <td>EDD:</td>
         <td>
           <input
@@ -160,7 +160,7 @@
         <td>{format(today, "d/M/yy h:mm b")}</td>
       </tr>
 
-      <tr id="gest" class="bg-indigo-300 font-semibold">
+      <tr id="gest" class="bg-indigo-200 font-semibold">
         <td>Gestation:</td>
         <td id="gestval">
           {gest.week ? gest.week : "0"}
@@ -196,8 +196,7 @@
             W
             <input type="number" style="width:2em" bind:value={givenDays} />
             D:
-          </span>
-          <!-- {toStr(countedDate)} -->
+          </span>     
         </td>
         <td>
           <input
