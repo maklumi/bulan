@@ -6,8 +6,8 @@
     differenceInCalendarDays,
     isValid,
   } from "date-fns";
-  import { ms } from "date-fns/locale";
-  import { tambah, resetvalue } from "./stor";
+  
+  import { tambah, resetvalue } from "../stor";
 
   export let handleClick;
   let lmp = new Date();

@@ -46,10 +46,10 @@
 </script>
 
 <div
-  class="bg-purple-300 m-2 shadow-2xl rounded-lg border-2 max-h-max max-w-max"
+  class="bg-purple-200 px-2 m-2 shadow-2xl rounded-lg border-2 border-purple-300 max-h-max max-w-max"
 >
   <div
-    class="flex bg-purple-500 p-2 mb-2 uppercase text-center tracking-wide
+    class="flex bg-purple-500 p-2 m-1 uppercase text-center tracking-wide
     border-2 border-purple-300 rounded"
   >
     Age Calculator

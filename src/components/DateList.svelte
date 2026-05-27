@@ -1,5 +1,5 @@
 <script>
-  import storTarikh, { padam } from "./stor";
+  import storTarikh, { padam } from "../stor";
 
   let masaMasuk;
   $: masaMasuk = $storTarikh[0];
@@ -7,12 +7,12 @@
 </script>
 
 <div
-  class="bg-pink-200 uppercase text-center tracking-wide border-purple-500 rounded
-max-h-max max-w-max p-2 m-2 border-2"
+  class="bg-pink-100 uppercase text-center tracking-wide border-purple-400 rounded
+max-h-max max-w p-2 m-2 border-2"
 >
   <p>Klinik mula: {masaMasuk ? masaMasuk.masa : "—"}</p>
   {#if senaraiPesakit.length !== 0}
-    <p>Bilangan kiraan: {senaraiPesakit.length}</p>
+    <p>Bilangan kiraan: <strong class="pill-number bg-pink-400"> {senaraiPesakit.length}</strong></p>
   {/if}
   <ol>
     {#each senaraiPesakit as { id, masa, gest }}
@@ -40,5 +40,12 @@ max-h-max max-w-max p-2 m-2 border-2"
   }
   button {
     cursor: no-drop;
+  }
+   .pill-number {
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    padding: 2px 16px;          /* Horizontal padding for pill shape */
+    border-radius: 999px;       /* Large radius for pill effect */
   }
 </style>

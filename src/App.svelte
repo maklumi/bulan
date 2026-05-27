@@ -1,8 +1,8 @@
 <script>
-  import MyCalendar from "./MyCalendar.svelte";
-  import ListTarikh from "./LisTarikh.svelte";
+  import ObstetricCalendar from "./components/ObstetricCalendar.svelte";
+  import ListTarikh from "./components/DateList.svelte";
   import { resetvalue } from "./stor.js";
-  import WeightSection from "./components/BMI.svelte";
+  import BMI from "./components/BMI.svelte";
   import AgeCalculator from "./components/AgeCalculator.svelte";
 
   // $: repeats = [1]
@@ -14,15 +14,18 @@
 
 <main class="flex flex-row flex-wrap justify-center gap-1">
   <div>
-    <MyCalendar  {handleClick}/>
+    <ObstetricCalendar  {handleClick}/>
   </div>
   <div>
-    <WeightSection />
+    <BMI />
+  </div>
+<div>
+  <div>
+   <AgeCalculator />
+    
   </div>
   <div>
-    <ListTarikh />
+   <ListTarikh />
   </div>
-  <div>
-    <AgeCalculator />
-  </div>
+</div>
 </main>

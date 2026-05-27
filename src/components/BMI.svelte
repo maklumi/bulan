@@ -39,31 +39,35 @@
       </div>
     </div>
 
-    <div class="">
-      <div class="flex mt-6 items-center gap-2">
-        <div>Current BMI :</div>
-        <div><strong>{currentbmi ? currentbmi.toFixed(1) : 0}</strong></div>
-      </div>
-      <div class="flex mt-4">
-        <div>Normal BMI 17-24.9 :</div>
-        <div>{minnormwt.toFixed(1)}-{maxnorwt.toFixed(1)}</div>
-      </div>
-      <div class="flex mt-1">
-        <div>Overwt BMI 25-29.9 :</div>
-        <div>{minoverwt.toFixed(1)}-{maxoverwt.toFixed(1)}</div>
-      </div>
-      <div class="flex mt-1">
-        <div>Obese BMI 30-34.9 :</div>
-        <div>{minobese1.toFixed(1)}-{maxobese1.toFixed(1)}</div>
-      </div>
-      <div class="flex mt-1">
-        <div>Obese BMI 35-39.9 :</div>
-        <div>{minobese2.toFixed(1)}-{maxobese2.toFixed(1)}</div>
-      </div>
-      <div class="flex mt-1">
-        <div>Obese BMI 40 :</div>
-        <div>{minobese3.toFixed(1)}</div>
-      </div>
-    </div>
+    <table class="table-auto m-1">
+      <tbody>
+        <tr class="flex py-2">
+          <td>Current BMI :</td>
+          <td><strong>{currentbmi ? currentbmi.toFixed(1) : 0}</strong></td>
+        </tr>
+        <tr>
+          <td>Normal 17+ : </td>
+          <td>{minnormwt.toFixed(1)}-{maxnorwt.toFixed(1)}</td>
+        </tr>
+        <tr>
+          <td>Overweight 25+ :</td>
+          <td>{minoverwt.toFixed(1)}-{maxoverwt.toFixed(1)}</td>
+        </tr>
+
+        <tr>
+          <td>Obese I 30+ :</td>
+          <td>{minobese1.toFixed(1)}-{maxobese1.toFixed(1)}</td>
+        </tr>
+
+        <tr>
+          <td>Obese II 35+ :</td>
+          <td>{minobese2.toFixed(1)}-{maxobese2.toFixed(1)}</td>
+        </tr>
+        <tr>
+          <td>Obese III 40+ :</td>
+          <td>{minobese3.toFixed(1)}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
