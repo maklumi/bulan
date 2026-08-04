@@ -46,44 +46,45 @@
 </script>
 
 <div
-  class="bg-purple-200 px-2 m-2 shadow-2xl rounded-lg border-2 border-purple-300 max-h-max max-w-max"
+  class="bg-slate-50 p-3 shadow-lg rounded-lg border border-slate-200 w-full w-full max-w-md"
 >
-  <div
-    class="flex bg-purple-500 p-2 m-1 uppercase text-center tracking-wide
-    border-2 border-purple-300 rounded"
-  >
-    Age Calculator
-  </div>
+  <div class="component-header">Age Calculator</div>
 
-  <div class="flex-row items-center gap-2 mb-2">
-    <label for="birthday" class="text-sm m-2">Born</label>
+  <!-- Input Section -->
+  <div class="flex items-center gap-3 mb-3 p-3">
+    <label for="birthday" class="text-sm font-medium text-slate-700">Born</label
+    >
     <input
       id="birthday"
       type="date"
       bind:value={birth}
       on:input={compute}
-      class="p-2 border rounded"
+      class="p-2 border border-slate-300 rounded focus:ring-2 focus:ring-sky-400"
       aria-label="Birthdate"
     />
     <button
       on:click={clear}
-      class="m-2 bg-purple-600 text-white px-3 py-1 rounded">Clear</button
+      class="m-2 bg-teal-600 hover:bg-teal-700 text-white px-3 py-1 rounded"
     >
+      Clear
+    </button>
   </div>
 
+  <!-- Error Message -->
   {#if error}
     <div class="text-red-600 text-sm mb-2">{error}</div>
   {/if}
 
+  <!-- Age Display -->
   {#if age}
-    <div class=" flex m-2 text-sm item-center gap-4">
-      <div>Age:</div>
-      <div><strong> {age.years}</strong> Years</div>
-      <div><strong>{age.months}</strong> Months</div>
-      <div><strong>{age.days}</strong> Days</div>
+    <div class="flex m-2 text-sm items-center gap-4 bg-green-50 p-2 rounded">
+      <div class="text-slate-700">Age:</div>
+      <div><strong class="text-green-700">{age.years}</strong> Years</div>
+      <div><strong class="text-green-700">{age.months}</strong> Months</div>
+      <div><strong class="text-green-700">{age.days}</strong> Days</div>
     </div>
   {:else}
-    <div class="m-2 text-sm text-gray-700">
+    <div class="m-2 text-sm text-slate-600 italic">
       Enter a birthdate to calculate age.
     </div>
   {/if}

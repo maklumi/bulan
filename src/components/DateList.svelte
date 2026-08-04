@@ -6,46 +6,46 @@
   $: senaraiPesakit = $storTarikh.slice(1);
 </script>
 
-<div
-  class="bg-pink-100 uppercase text-center tracking-wide border-purple-400 rounded
-max-h-max max-w p-2 m-2 border-2"
->
-  <p>Klinik mula: {masaMasuk ? masaMasuk.masa : "—"}</p>
+<div class="bg-slate-50 p-3 shadow-lg rounded-lg border border-slate-200 w-full max-w-md">
+  <p class="text-sky-700 font-semibold">
+    Klinik mula: {masaMasuk ? masaMasuk.masa : "—"}
+  </p>
+
   {#if senaraiPesakit.length !== 0}
-    <p>Bilangan kiraan: <strong class="pill-number bg-pink-400"> {senaraiPesakit.length}</strong></p>
+    <p class="mt-2 text-slate-700">
+      Bilangan kiraan:
+      <strong
+        class="pill-number bg-sky-600 text-white px-3 py-1 rounded-full ml-2"
+      >
+        {senaraiPesakit.length}
+      </strong>
+    </p>
   {/if}
-  <ol>
+
+  <ol class="mt-3 space-y-2">
     {#each senaraiPesakit as { id, masa, gest }}
-      <li class="py-1 flex justify-between mt-1 px-1">
+      <li class="flex justify-between items-center bg-slate-100 rounded px-2 py-1">
         <button
-          class="bg-purple-400 hover:bg-purple-600 text-white px-1 py-0"
+          class="bg-teal-600 hover:bg-teal-700 text-white px-2 py-1 rounded cursor-pointer"
           on:click={() => padam(id)}
         >
           {masa.slice(-5)}
         </button>
-        <div>LMP: {masa.slice(0, -5)} POA: {gest.week}+{gest.days}/7</div>
+        <div class="text-slate-700 text-sm">
+          LMP: {masa.slice(0, -5)} &nbsp; POA: {gest.week}+{gest.days}/7
+        </div>
       </li>
     {:else}
-      <div>Selamat Bertugas</div>
+      <div class="text-slate-600 italic">Selamat Bertugas</div>
     {/each}
   </ol>
 </div>
 
 <style>
-  li {
-    background-color: #fff5f7;
-  }
-  li:nth-child(odd) {
-    background-color: #fbb6ce;
-  }
-  button {
-    cursor: no-drop;
-  }
-   .pill-number {
+  .pill-number {
     display: inline-block;
-    color: white;
-    font-size: 20px;
-    padding: 2px 16px;          /* Horizontal padding for pill shape */
-    border-radius: 999px;       /* Large radius for pill effect */
+    font-size: 1rem;
+    font-weight: 600;
   }
 </style>
+

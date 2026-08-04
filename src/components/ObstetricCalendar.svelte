@@ -6,7 +6,7 @@
     differenceInCalendarDays,
     isValid,
   } from "date-fns";
-  
+
   import { tambah, resetvalue } from "../stor";
 
   export let handleClick;
@@ -113,54 +113,52 @@
 </script>
 
 <div
-  class="bg-purple-200 m-2 shadow-2xl rounded h-max max-w-max flex-col border-2 border-purple-300"
+  class="bg-slate-50 inline-block p-3 shadow-lg rounded-lg border border-slate-200 w-full max-w-md"
 >
   <div>
-    <div
-      class="bg-purple-500 p-2 uppercase text-center rounded-sm"
-    >
-      Obstetric Calendar
-    </div>
+    <div class="component-header">Obstetric Calendar</div>
     <button
-      class="bg-purple-600 hover:bg-purple-800 text-white py-0 px-2 rounded m-1"
+      class="bg-teal-600 hover:bg-teal-700 text-white py-1 px-3 rounded m-2"
       on:click={() => handleClick()}
     >
       Reset
     </button>
   </div>
 
-  <table class="table-auto w-fit p-2 m-1">
+  <table class="table-auto w-fit mx-auto text-slate-800 border-collapse">
     <tbody>
-      <tr id="lmp" class="bg-pink-300">
-        <td>LMP:</td>
+      <tr id="lmp" class="bg-blue-100">
+        <td class="font-medium">LMP:</td>
         <td>
           <input
             type="date"
             value={start}
             on:input={handleLMP}
             max="9999-12-31"
+            class="border border-slate-300 rounded px-2"
           />
         </td>
       </tr>
 
-      <tr id="edd" class="bg-pink-400">
-        <td>EDD:</td>
+      <tr id="edd" class="bg-blue-200">
+        <td class="font-medium">EDD:</td>
         <td>
           <input
             type="date"
             value={endDate}
             on:change={handleEDD}
             max="9999-12-31"
+            class="border border-slate-300 rounded px-2"
           />
         </td>
       </tr>
 
-      <tr id="today" class="uppercase font-medium tracking-wider">
+      <tr id="today" class="uppercase font-medium tracking-wide">
         <td>Today is</td>
         <td>{format(today, "d/M/yy h:mm b")}</td>
       </tr>
 
-      <tr id="gest" class="bg-indigo-200 font-semibold">
+      <tr id="gest" class="bg-green-100 font-semibold">
         <td>Gestation:</td>
         <td id="gestval">
           {gest.week ? gest.week : "0"}
@@ -169,34 +167,29 @@
           {gest.days > 1 ? "days" : "day"}
         </td>
       </tr>
-      <tr class="font-light">
-        <td>14 weeks:</td>
-        <td>{week14}</td>
-      </tr>
-      <tr class="font-light">
-        <td>20 weeks:</td>
-        <td>{week20}</td>
-      </tr>
-      <tr class="font-light">
-        <td>30 weeks:</td>
-        <td>{week30}</td>
-      </tr>
-      <tr class="font-light">
-        <td>33 weeks:</td>
-        <td>{week33}</td>
-      </tr>
-      <tr class="font-light">
-        <td>38 weeks:</td>
-        <td>{week38}</td>
-      </tr>
-      <tr id="weday" class="bg-purple-400">
+
+      <tr class="font-light"><td>14 weeks:</td><td>{week14}</td></tr>
+      <tr class="font-light"><td>20 weeks:</td><td>{week20}</td></tr>
+      <tr class="font-light"><td>30 weeks:</td><td>{week30}</td></tr>
+      <tr class="font-light"><td>33 weeks:</td><td>{week33}</td></tr>
+      <tr class="font-light"><td>38 weeks:</td><td>{week38}</td></tr>
+
+      <tr id="weday" class="bg-yellow-100">
         <td>
           <span>
-            <input type="number" style="width:2em" bind:value={givenWeeks} />
+            <input
+              type="number"
+              class="w-12 border border-slate-300 rounded px-1"
+              bind:value={givenWeeks}
+            />
             W
-            <input type="number" style="width:2em" bind:value={givenDays} />
+            <input
+              type="number"
+              class="w-12 border border-slate-300 rounded px-1"
+              bind:value={givenDays}
+            />
             D:
-          </span>     
+          </span>
         </td>
         <td>
           <input
@@ -204,6 +197,7 @@
             value={searchDate}
             on:change={handleSearchDate}
             max="9999-12-31"
+            class="border border-slate-300 rounded px-2"
           />
         </td>
       </tr>

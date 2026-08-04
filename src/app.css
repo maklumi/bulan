@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .component-header {
+    @apply bg-sky-600 text-white p-2 uppercase text-center tracking-wide rounded-t-lg font-semibold;
+  }
+}
