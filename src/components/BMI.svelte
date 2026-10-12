@@ -14,7 +14,7 @@
 </script>
 
 <div
-  class="bg-slate-50 p-3 shadow-lg rounded-lg border border-slate-200 w-full max-w-md"
+  class="bg-slate-50 p-0 shadow-lg rounded-lg border border-slate-200 w-full max-w-md"
 >
   <div class="component-header">BMI Measurements</div>
 

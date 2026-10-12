@@ -113,18 +113,12 @@
 </script>
 
 <div
-  class="bg-slate-50 inline-block p-3 shadow-lg rounded-lg border border-slate-200 w-full max-w-md"
+  class="bg-slate-50 inline-block p-0 shadow-lg rounded-lg border border-slate-200 w-full max-w-md"
 >
-  <div>
-    <div class="component-header">Obstetric Calendar</div>
-    <button
-      class="bg-teal-600 hover:bg-teal-700 text-white py-1 px-3 rounded m-2"
-      on:click={() => handleClick()}
-    >
-      Reset
-    </button>
-  </div>
-
+  
+    <div class="component-header">Obstetric Calendar</div>  
+ 
+<div class="p-3 space-y-2">
   <table class="table-auto w-fit mx-auto text-slate-800 border-collapse">
     <tbody>
       <tr id="lmp" class="bg-blue-100">
@@ -201,6 +195,17 @@
           />
         </td>
       </tr>
+      <tr>
+        <td colspan="2" class="pt-2 text-right">
+          <button
+            class="bg-teal-600 hover:bg-teal-700 text-white py-1 px-3 rounded"
+            on:click={() => handleClick()}
+          >
+            Reset
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
+</div>
 </div>
